@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/queries/lucene-queries-4.5.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/queryparser/lucene-queryparser-4.5.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/core/lucene-core-4.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/jre/lib/ext/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
