@@ -10,20 +10,15 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.SAXException;
 
 import Einlesen.*;
+import suche.Suche;
+
 
 public class Rezeptesammlung {
 
@@ -41,9 +36,10 @@ public class Rezeptesammlung {
 		writer = new IndexWriter(indexDir, new IndexWriterConfig(
 				Version.LUCENE_45, analyzer));
 		Einlesen.Methoden meth = new Einlesen.Methoden();
+		Suche such = new Suche();
 
 		File file = new File(
-				"H:\\Dokumente\\PraktikumProgrammieren\\Archive\\rssfiles");
+				"C:/SWP/Archive/rssfiles");
 		LinkedList<File> dirList = meth.listDir(file);
 
 		meth.listDir(file);
@@ -59,19 +55,22 @@ public class Rezeptesammlung {
 
 		// Methoden.deleteDir(file);
 		writer.close();
-		DirectoryReader dr = DirectoryReader.open(indexDir);
-		IndexSearcher searcher = new IndexSearcher(dr);
-		QueryParser qp = new QueryParser(Version.LUCENE_45, "content", analyzer);
-		String search = "und";
-		Query query = qp.parse(search);
-
-		TopDocs td = searcher.search(query, 10);
-		ScoreDoc[] sd = td.scoreDocs;
-		for (int i = 0; i < sd.length; i++) {
-			Document doc = searcher.doc(sd[i].doc);
-			System.out.println(doc.get("description"));
-		}
-		dr.close();
+		
+		such.suchen("und");
+		
+//		DirectoryReader dr = DirectoryReader.open(indexDir);
+//		IndexSearcher searcher = new IndexSearcher(dr);
+//		QueryParser qp = new QueryParser(Version.LUCENE_45, "content", analyzer);
+//		String search = "und";
+//		Query query = qp.parse(search);
+//
+//		TopDocs td = searcher.search(query, 10);
+//		ScoreDoc[] sd = td.scoreDocs;
+//		for (int i = 0; i < sd.length; i++) {
+//			Document doc = searcher.doc(sd[i].doc);
+//			System.out.println(doc.get("description"));
+//		}
+//		dr.close();
 
 	}
 
