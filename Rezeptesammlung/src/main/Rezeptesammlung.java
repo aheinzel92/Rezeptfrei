@@ -31,7 +31,7 @@ public class Rezeptesammlung {
 			org.apache.lucene.queryparser.classic.ParseException,
 			ParserConfigurationException, SAXException {
 
-		indexDir = new NIOFSDirectory(new File("testIndexDir"));
+		indexDir = new NIOFSDirectory(new File("prodIndexDir"));
 		analyzer = new StandardAnalyzer(Version.LUCENE_45);
 		writer = new IndexWriter(indexDir, new IndexWriterConfig(
 				Version.LUCENE_45, analyzer));
@@ -52,26 +52,10 @@ public class Rezeptesammlung {
 
 			}
 		}
-
 		// Methoden.deleteDir(file);
-		writer.close();
-		
+		writer.close();	
 		such.suchen("und");
 		
-//		DirectoryReader dr = DirectoryReader.open(indexDir);
-//		IndexSearcher searcher = new IndexSearcher(dr);
-//		QueryParser qp = new QueryParser(Version.LUCENE_45, "content", analyzer);
-//		String search = "und";
-//		Query query = qp.parse(search);
-//
-//		TopDocs td = searcher.search(query, 10);
-//		ScoreDoc[] sd = td.scoreDocs;
-//		for (int i = 0; i < sd.length; i++) {
-//			Document doc = searcher.doc(sd[i].doc);
-//			System.out.println(doc.get("description"));
-//		}
-//		dr.close();
-
 	}
 
 }
