@@ -26,7 +26,7 @@ public class Suche
 		ScoreDoc[] sd = td.scoreDocs;
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
-			System.out.println(doc.get("description"));
+			System.out.println(doc.get("beschreibung"));
 		}
 		dr.close();
 	}

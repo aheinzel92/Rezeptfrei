@@ -1,6 +1,5 @@
 package Einlesen;
 
-
 /**
  * @author Stephan Maltan
  * 
@@ -32,10 +31,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import main.Rezeptesammlung;
 
 public class Xml_einlesen {
-	
-	public static Analyzer analyzer;
-	public static NIOFSDirectory indexDir;
-	
+
 	public static void Einlesen(String pfad) throws IOException, ParseException, BadLocationException,
 			org.apache.lucene.queryparser.classic.ParseException, ParserConfigurationException, SAXException
 
@@ -54,34 +50,38 @@ public class Xml_einlesen {
 		DocumentBuilder db;
 		db = dbf.newDocumentBuilder();
 		db.setErrorHandler(new DefaultHandler());
-		org.w3c.dom.Document docu = null;
-		docu = db.parse(new File(pfad));
+		org.w3c.dom.Document doku = null;
+		doku = db.parse(new File(pfad));
 
-		Element text = (Element) docu.getElementsByTagName("ExtractedText").item(0);
-		Element items = (Element) docu.getElementsByTagName("item").item(0);
+		Element text = (Element) doku.getElementsByTagName("ExtractedText").item(0);
+		Element items = (Element) doku.getElementsByTagName("item").item(0);
+		Element image = (Element) doku.getElementsByTagName("image").item(0);
 
-		String title = items.getElementsByTagName("title").item(0).getTextContent();
-		String description = items.getElementsByTagName("description").item(0).getTextContent();
+		String titel = items.getElementsByTagName("title").item(0).getTextContent();
+		String beschreibung = items.getElementsByTagName("description").item(0).getTextContent();
 		String link = items.getElementsByTagName("link").item(0).getTextContent();
 		String pubDate = items.getElementsByTagName("pubDate").item(0).getTextContent();
-		String extractedText = text.getTextContent();
+		String bild = image.getElementsByTagName("url").item(0).getTextContent();
+		String inhalt = text.getTextContent();
 
 		/*
-		 * Einfügen der Daten in ein Lucene-Dokument
-		 * Hinzufügen des Dokuments zum Index
+		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
+		 * zum Index
 		 */
 
-		Document document = new Document();
-		document.add(new TextField("title", title, Field.Store.YES));
-		document.add(new TextField("content", extractedText, Field.Store.YES));
-		document.add(new TextField("link", link, Field.Store.YES));
-		document.add(new TextField("pubDate", pubDate, Field.Store.YES));
-		document.add(new TextField("description", description, Field.Store.YES));
+		Document dokument = new Document();
+		dokument.add(new TextField("titel", titel, Field.Store.YES));
+		dokument.add(new TextField("inhalt", inhalt, Field.Store.YES));
+		dokument.add(new TextField("link", link, Field.Store.YES));
+		dokument.add(new TextField("pubDate", pubDate, Field.Store.YES));
+		dokument.add(new TextField("beschreibung", beschreibung, Field.Store.YES));
+		dokument.add(new TextField("bild", bild, Field.Store.YES));
 
-//		indexDir = new NIOFSDirectory(new File("testIndexDir"));
-//		analyzer = new StandardAnalyzer(Version.LUCENE_45);
-//		IndexWriter writer = new IndexWriter(indexDir, new IndexWriterConfig(Version.LUCENE_45, analyzer));
-		Rezeptesammlung.writer.addDocument(document);
+		// indexDir = new NIOFSDirectory(new File("testIndexDir"));
+		// analyzer = new StandardAnalyzer(Version.LUCENE_45);
+		// IndexWriter writer = new IndexWriter(indexDir, new
+		// IndexWriterConfig(Version.LUCENE_45, analyzer));
+		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}
 }
