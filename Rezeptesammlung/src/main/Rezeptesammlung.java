@@ -52,9 +52,9 @@ public class Rezeptesammlung {
 
 			}
 		}
-		// Methoden.deleteDir(file);
+		Methoden.deleteDir(file);
 		writer.close();	
-		such.suchen("und");
+		//such.suchen("und");
 		
 	}
 
