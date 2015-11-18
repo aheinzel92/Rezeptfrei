@@ -1,4 +1,4 @@
-package Oberfläche;
+package oberflaeche;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,19 +22,20 @@ public class SuchergebnisElement extends HBox {
 	 * 
 	 */
 	public SuchergebnisElement(String bildurl, String beschreibung) {
-		try{
+		try {
 			Image thumbnail = new Image(bildurl);
 
 			this.vorschaubild = new ImageView(thumbnail);
 			vorschaubild.setFitWidth(200);
 			vorschaubild.setPreserveRatio(true);
+
+		} catch (Exception e) {
+			Image bild = new Image("oberflaeche/grafik/null.jpg");
 			
-//			this.vorschaubild = new ImageView(new Image(bildurl, 220, 165, true, true));
-		}catch(Exception e){
-			System.out.println("kein bild");
-			this.vorschaubild = new ImageView(new Image("http://img1.wikia.nocookie.net/__cb20121110160830/vampirediaries/de/images/4/48/Kein_bild.jpg"));
+			this.vorschaubild = new ImageView();
+				vorschaubild.setImage(bild);
 		}
-		
+
 		this.getChildren().addAll(vorschaubild, splitText(beschreibung));
 	}
 
