@@ -70,12 +70,12 @@ public class Xml_einlesen {
 		 */
 
 		Document dokument = new Document();
-		dokument.add(new TextField("titel", titel, Field.Store.YES));
-		dokument.add(new TextField("inhalt", inhalt, Field.Store.YES));
-		dokument.add(new TextField("link", link, Field.Store.YES));
-		dokument.add(new TextField("pubDate", pubDate, Field.Store.YES));
-		dokument.add(new TextField("beschreibung", beschreibung, Field.Store.YES));
-		dokument.add(new TextField("bild", bild, Field.Store.YES));
+		dokument.add(new TextField("Titel", titel, Field.Store.YES));
+		dokument.add(new TextField("Inhalt", inhalt, Field.Store.YES));
+		dokument.add(new TextField("Link", link, Field.Store.YES));
+		dokument.add(new TextField("PubDate", pubDate, Field.Store.YES));
+		dokument.add(new TextField("Beschreibung", beschreibung, Field.Store.YES));
+		dokument.add(new TextField("Bild", bild, Field.Store.YES));
 
 		// indexDir = new NIOFSDirectory(new File("testIndexDir"));
 		// analyzer = new StandardAnalyzer(Version.LUCENE_45);

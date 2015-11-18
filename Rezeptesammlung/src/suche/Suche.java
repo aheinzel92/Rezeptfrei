@@ -19,14 +19,14 @@ public class Suche
 	{
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
 		IndexSearcher searcher = new IndexSearcher(dr);
-		QueryParser qp = new QueryParser(Version.LUCENE_45, "content", Rezeptesammlung.analyzer);
+		QueryParser qp = new QueryParser(Version.LUCENE_45, "Inhalt", Rezeptesammlung.analyzer);
 		Query query = qp.parse(suchbegriff);
 
 		TopDocs td = searcher.search(query, 10);
 		ScoreDoc[] sd = td.scoreDocs;
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
-			System.out.println(doc.get("beschreibung"));
+			System.out.println(doc.get("Beschreibung"));
 		}
 		dr.close();
 	}
