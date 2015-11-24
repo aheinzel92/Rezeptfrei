@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 import einlesen.*;
 import suche.Suche;
 
-// hoffentlich klappts
+
 
 public class Rezeptesammlung {
 
