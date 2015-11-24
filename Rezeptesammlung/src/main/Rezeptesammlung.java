@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
 import einlesen.*;
 import suche.Suche;
 
+// hoffentlich klappts
 
 public class Rezeptesammlung {
 
@@ -40,7 +41,7 @@ public class Rezeptesammlung {
 		Suche such = new Suche();
 		
 		File file = new File(
-				"C:/SWP/Archive/rssfiles");
+				"C:/Users/Gabriele/Documents/FH Hof/Semester 5/PraktikumProgrammieren/PraktikumProgrammieren/Archive/rssfiles");
 		LinkedList<File> dirList = meth.listDir(file);
 
 		meth.listDir(file);
@@ -55,7 +56,7 @@ public class Rezeptesammlung {
 		}
 		Methoden.deleteDir(file);
 		writer.close();	
-		//such.suchen("und");
+		such.suchen("Lachs mit Sahne");
 		
 	}
 

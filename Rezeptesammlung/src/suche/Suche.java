@@ -22,7 +22,7 @@ public class Suche
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
 		IndexSearcher searcher = new IndexSearcher(dr);
 		QueryParser qp = new QueryParser(Version.LUCENE_45, "Inhalt", Rezeptesammlung.analyzer);
-		Query query = qp.parse(suchbegriff);
+		Query query = qp.parse(suchbegriff );
 
 
 		TopDocs td = searcher.search(query, 10);
