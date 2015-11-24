@@ -1,5 +1,5 @@
 package suche;
-
+//hier
 import java.io.IOException;
 
 import objekte.Suchobjekt;
