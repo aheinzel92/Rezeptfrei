@@ -9,6 +9,7 @@ import javax.swing.text.BadLocationException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.de.GermanAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -16,7 +17,7 @@ import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.SAXException;
 
-import Einlesen.*;
+import einlesen.*;
 import suche.Suche;
 
 
@@ -32,12 +33,12 @@ public class Rezeptesammlung {
 			ParserConfigurationException, SAXException {
 
 		indexDir = new NIOFSDirectory(new File("prodIndexDir"));
-		analyzer = new StandardAnalyzer(Version.LUCENE_45);
+		analyzer = new GermanAnalyzer(Version.LUCENE_45);
 		writer = new IndexWriter(indexDir, new IndexWriterConfig(
 				Version.LUCENE_45, analyzer));
-		Einlesen.Methoden meth = new Einlesen.Methoden();
+		einlesen.Methoden meth = new einlesen.Methoden();
 		Suche such = new Suche();
-
+		
 		File file = new File(
 				"C:/SWP/Archive/rssfiles");
 		LinkedList<File> dirList = meth.listDir(file);

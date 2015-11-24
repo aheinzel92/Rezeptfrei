@@ -1,4 +1,4 @@
-package Einlesen;
+package einlesen;
 
 /**
  * @author Stephan Maltan

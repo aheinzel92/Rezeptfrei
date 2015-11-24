@@ -1,4 +1,4 @@
-package Einlesen;
+package einlesen;
 
 import java.io.File;
 import java.util.ArrayList;

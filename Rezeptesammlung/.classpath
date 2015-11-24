@@ -2,10 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/analysis/common/lucene-analyzers-common-4.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/queries/lucene-queries-4.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/queryparser/lucene-queryparser-4.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/itdlz-mast/Downloads/lucene-4.5.0/core/lucene-core-4.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/jre/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Gabriele/Documents/FH Hof/Semester 5/PraktikumProgrammieren/PraktikumProgrammieren/lucene-4.5.0/analysis/common/lucene-analyzers-common-4.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gabriele/Documents/FH Hof/Semester 5/PraktikumProgrammieren/PraktikumProgrammieren/lucene-4.5.0/core/lucene-core-4.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gabriele/Documents/FH Hof/Semester 5/PraktikumProgrammieren/PraktikumProgrammieren/lucene-4.5.0/queries/lucene-queries-4.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gabriele/Documents/FH Hof/Semester 5/PraktikumProgrammieren/PraktikumProgrammieren/lucene-4.5.0/queryparser/lucene-queryparser-4.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_51/lib/ext/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
