@@ -11,6 +11,16 @@ import javafx.scene.text.Font;
 public class SuchergebnisElement extends HBox {
 
 	private ImageView vorschaubild;
+	
+	private String titel;
+	private String beschreibung;
+	private String tag;
+	private String monat;
+	private String jahr;
+	private String inhalt;
+	private String link;
+	private String quelle;
+	
 	private String arbeitszeit;
 	private String kochbackzeit;
 	private String schwierigkeit;
@@ -21,10 +31,19 @@ public class SuchergebnisElement extends HBox {
 	/* Konstruktor der Klasse, der falls kein Bild verfügbar ist, ein Standardbild anzeigt
 	 * 
 	 */
-	public SuchergebnisElement(String bildurl, String beschreibung) {
+	public SuchergebnisElement(String bildurl, 
+							String beschreibung, 
+							String titel, 
+							String inhalt, 
+							String link, 
+							String tag, 
+							String monat, 
+							String jahr, 
+							String quelle) 
+	{
+		
 		try {
 			Image thumbnail = new Image(bildurl);
-
 			this.vorschaubild = new ImageView(thumbnail);
 			vorschaubild.setFitWidth(200);
 			vorschaubild.setPreserveRatio(true);
@@ -36,6 +55,12 @@ public class SuchergebnisElement extends HBox {
 				vorschaubild.setImage(bild);
 		}
 
+		if (quelle.equals("chefkoch.de")) {
+			generiereChefkoch(inhalt, beschreibung);
+		} else if (quelle.equals("lecker.de")) {
+			generiereLecker(inhalt, beschreibung);
+		}
+		
 		this.getChildren().addAll(vorschaubild, splitText(beschreibung));
 	}
 
@@ -65,6 +90,21 @@ public class SuchergebnisElement extends HBox {
 		return text;
 	}
 	
+	
+	private void generiereChefkoch(String inhalt, String beschreibung){
+		
+		this.inhalt = inhalt;
+		this.beschreibung = beschreibung;
+		System.out.println("chefkoch.de");
+	}
+	
+	private void generiereLecker(String inhalt, String beschreibung){
+
+		this.inhalt = inhalt;
+		this.beschreibung = beschreibung;
+		System.out.println("lecker.de");
+		
+	}
 	
 	/* Eine Methode die mittels PixelReader() und WritableImage() ein übergebenes Bild beschneidet und
 	 * in den Ausschnitt mittig auf das Bild anwendet.
