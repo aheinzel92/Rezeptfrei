@@ -143,7 +143,6 @@ public class Xml_einlesen {
 		dokument.add(new TextField("Jahr", jahr, Field.Store.YES));
 		dokument.add(new TextField("Beschreibung", beschreibung, Field.Store.YES));
 		dokument.add(new TextField("Bild", bild, Field.Store.YES));
-
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}
