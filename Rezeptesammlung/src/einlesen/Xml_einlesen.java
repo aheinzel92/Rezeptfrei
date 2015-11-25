@@ -60,9 +60,73 @@ public class Xml_einlesen {
 		String titel = items.getElementsByTagName("title").item(0).getTextContent();
 		String beschreibung = items.getElementsByTagName("description").item(0).getTextContent();
 		String link = items.getElementsByTagName("link").item(0).getTextContent();
-		String pubDate = items.getElementsByTagName("pubDate").item(0).getTextContent();
+		String pubDat = items.getElementsByTagName("pubDate").item(0).getTextContent();
 		String bild = image.getElementsByTagName("url").item(0).getTextContent();
 		String inhalt = text.getTextContent();
+		String quelle;
+		String tag;
+		String monat;
+		String jahr;
+		if(link.contains("www.lecker.de"))
+		{
+			quelle = "lecker.de";
+			tag = pubDat.substring(8, 10);
+			monat = pubDat.substring(5,7);
+			jahr = pubDat.substring(0,4);
+		}
+		else
+		{
+			quelle = "chefkoch.de";
+			tag = pubDat.substring(5, 7);
+			jahr = pubDat.substring(12,16);
+			String monNam = pubDat.substring(8,11);
+			System.out.println(monNam);
+			switch(monNam.toLowerCase())
+			{
+			case "jan":
+				monat = "1";
+				break;
+			case "feb":
+				monat = "2";
+				break;
+			case "mar":
+				monat = "3";
+				break;
+			case "apr":
+				monat = "4";
+				break;
+			case "may":
+				monat = "5";
+				break;
+			case "jun":
+				monat = "6";
+				break;
+			case "jul":
+				monat = "7";
+				break;
+			case "aug":
+				monat = "8";
+				break;
+			case "sep":
+				monat = "9";
+				break;
+			case "oct":
+				monat = "10";
+				break;
+			case "nov":
+				monat = "11";
+				break;
+			case "dec":
+				monat = "1";
+				break;
+			default:
+				monat="0";
+				break;
+			}
+		}
+		
+		System.out.println(tag + " " + monat + " " + jahr);
+		System.out.println(quelle);
 
 		/*
 		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
@@ -70,17 +134,16 @@ public class Xml_einlesen {
 		 */
 
 		Document dokument = new Document();
+		dokument.add(new TextField("Quelle", quelle, Field.Store.YES));
 		dokument.add(new TextField("Titel", titel, Field.Store.YES));
 		dokument.add(new TextField("Inhalt", inhalt, Field.Store.YES));
 		dokument.add(new TextField("Link", link, Field.Store.YES));
-		dokument.add(new TextField("PubDate", pubDate, Field.Store.YES));
+		dokument.add(new TextField("Tag", tag, Field.Store.YES));
+		dokument.add(new TextField("Monat", monat, Field.Store.YES));
+		dokument.add(new TextField("Jahr", jahr, Field.Store.YES));
 		dokument.add(new TextField("Beschreibung", beschreibung, Field.Store.YES));
 		dokument.add(new TextField("Bild", bild, Field.Store.YES));
 
-		// indexDir = new NIOFSDirectory(new File("testIndexDir"));
-		// analyzer = new StandardAnalyzer(Version.LUCENE_45);
-		// IndexWriter writer = new IndexWriter(indexDir, new
-		// IndexWriterConfig(Version.LUCENE_45, analyzer));
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}
