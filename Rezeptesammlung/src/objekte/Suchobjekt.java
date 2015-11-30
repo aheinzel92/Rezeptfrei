@@ -2,6 +2,7 @@ package objekte;
 
 public class Suchobjekt 
 {
+	//test
 	String titel;
 	String bild;
 	String beschreibung;
