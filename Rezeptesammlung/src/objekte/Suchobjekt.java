@@ -1,5 +1,7 @@
 package objekte;
 
+// suchobjekt muss noch angepasst werden
+
 public class Suchobjekt 
 {
 	String titel;
