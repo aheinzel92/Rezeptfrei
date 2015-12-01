@@ -50,11 +50,18 @@ public class Gui extends Application {
 		SuchergebnisElement tempRezept;
 
 		Menu suchoptionen = new Menu("Suchoptionen");
-		Menu webseite;
+//		Menu webseite;
 
-		String[] auflistung = { "Vorspeise", "Hauptspeise", "Dessert",
-								"Beilage", "Salat", "Suppen", 
-								"Back-/Süßspeisen", "Getränke",	"Frühstück" };
+		String[] auflistung = { "Vorspeise", 
+								"Hauptspeise", 
+								"Dessert",
+								"Beilage", 
+								"Salat", 
+								"Suppen", 
+								"Back-/Süßspeisen", 
+								"Getränke",	
+								"Frühstück" };
+		
 		CheckBox[] auswahl = new CheckBox[auflistung.length];
 
 		for (int i = 0; i < auflistung.length; i++) {
