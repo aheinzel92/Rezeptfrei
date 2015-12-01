@@ -1,5 +1,7 @@
 package oberflaeche;
 
+import objekte.Suchobjekt;
+import suche.Suche;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -44,6 +46,8 @@ public class Gui extends Application {
 				});
 
 		datei.getItems().add(beenden);
+		
+		SuchergebnisElement tempRezept;
 
 		Menu suchoptionen = new Menu("Suchoptionen");
 		Menu webseite;
@@ -96,6 +100,30 @@ public class Gui extends Application {
 		 * 
 		 * }
 		 */
+		try{
+		String sucheingabe = suchfeld.getText();
+		Suche neueSuche = new Suche();
+		
+			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(sucheingabe);
+			suchtreffer = gefundeneRezepte.length;
+			
+			for(int i = 0; i < suchtreffer; i++){
+						
+				tempRezept = new SuchergebnisElement(gefundeneRezepte[i].getBild(),
+													gefundeneRezepte[i].getBeschreibung(),
+													gefundeneRezepte[i].getTitel(),
+													gefundeneRezepte[i].getInhalt(),
+													gefundeneRezepte[i].getLink(),
+													gefundeneRezepte[i].getTag(),
+													gefundeneRezepte[i].getMonat(),
+													gefundeneRezepte[i].getJahr(),
+													gefundeneRezepte[i].getQuelle());
+				
+				suchergebnisse.getChildren().add(tempRezept);
+			}
+		}catch(Exception e){
+			
+		};
 
 		ScrollPane scrollpane = new ScrollPane();
 			scrollpane.setContent(suchergebnisse);

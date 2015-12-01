@@ -1,28 +1,23 @@
 package objekte;
 
+// suchobjekt muss noch angepasst werden
+
 public class Suchobjekt 
 {
 	//tet
 	String titel;
 	String bild;
 	String beschreibung;
-	String tag;
-	String monat;
-	String jahr;
+	String datum;
 	String inhalt;
 	String link;
-	String quelle;
-
 	
-	public Suchobjekt(String quelle, String titel, String bild, String beschreibung, String tag, String monat, String jahr, String inhalt, String link)
+	public Suchobjekt(String titel, String bild, String beschreibung, String datum, String inhalt, String link)
 	{
-		this.quelle = quelle;
 		this.titel = titel;
 		this.bild = bild;
 		this.beschreibung = beschreibung;
-		this.tag = tag;
-		this.monat = monat;
-		this.jahr = jahr;
+		this.datum = datum;
 		this.inhalt = inhalt;
 		this.link = link;
 	}
@@ -39,20 +34,8 @@ public class Suchobjekt
 		return beschreibung;
 	}
 
-	public String getTag() {
-		return tag;
-	}
-
-	public String getMonat() {
-		return monat;
-	}
-
-	public String getJahr() {
-		return jahr;
-	}
-
-	public String getQuelle() {
-		return quelle;
+	public String getDatum() {
+		return datum;
 	}
 
 	public String getInhalt() {
