@@ -35,9 +35,14 @@ public class Suche {
 			System.out.println(doc.get("Tag") + " " + doc.get("Monat") + " " + doc.get("Jahr"));
 			
 			ergebnisObjekt[i] = new Suchobjekt(doc.get("Quelle"),
-					doc.get("Titel"), doc.get("Bild"), doc.get("Beschreibung"),
-					doc.get("Tag"), doc.get("Monat"), doc.get("Jahr"),
-					doc.get("Inhalt"), doc.get("Link"));
+											doc.get("Titel"), 
+											doc.get("Bild"), 
+											doc.get("Beschreibung"),
+											doc.get("Tag"), 
+											doc.get("Monat"), 
+											doc.get("Jahr"),
+											doc.get("Inhalt"), 
+											doc.get("Link"));
 		}
 		dr.close();
 		return ergebnisObjekt;

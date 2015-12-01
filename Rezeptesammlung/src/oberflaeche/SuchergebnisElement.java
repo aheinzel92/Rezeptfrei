@@ -85,7 +85,7 @@ public class SuchergebnisElement extends HBox {
 		}
 	
 		this.text = new Label(arbeitszeit + "\n" + kochbackzeit + "\n" + schwierigkeit + "\n" + kalorienpp);
-		text.setFont(new Font("Sylfaen",14));
+		this.text.setFont(new Font("Sylfaen",14));
 		
 		return text;
 	}
