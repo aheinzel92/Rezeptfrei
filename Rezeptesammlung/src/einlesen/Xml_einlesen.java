@@ -149,6 +149,8 @@ public class Xml_einlesen {
 		 */
 
 		Document dokument = new Document();
+		TextField test= new TextField("Quelle", quelle, Field.Store.YES);
+		test.setBoost(1.7f);
 		dokument.add(new TextField("Quelle", quelle, Field.Store.YES));
 		dokument.add(new TextField("Titel", titel, Field.Store.YES));
 		dokument.add(new TextField("Inhalt", inhalt, Field.Store.YES));
