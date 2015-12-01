@@ -8,7 +8,10 @@ package einlesen;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.text.BadLocationException;
 import javax.xml.parsers.DocumentBuilder;
@@ -56,6 +59,11 @@ public class Xml_einlesen {
 		Element text = (Element) doku.getElementsByTagName("ExtractedText").item(0);
 		Element items = (Element) doku.getElementsByTagName("item").item(0);
 		Element image = (Element) doku.getElementsByTagName("image").item(0);
+		
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        Calendar c = df.getCalendar();
+        c.setTimeInMillis(System.currentTimeMillis());
+       
 
 		String titel = items.getElementsByTagName("title").item(0).getTextContent();
 		String beschreibung = items.getElementsByTagName("description").item(0).getTextContent();
@@ -117,14 +125,21 @@ public class Xml_einlesen {
 				monat = "11";
 				break;
 			case "dec":
-				monat = "1";
+				monat = "12";
 				break;
 			default:
 				monat="0";
 				break;
 			}
 		}
-		
+		if(tag.equals("0") || monat.equals("0") || jahr.equals("0"))
+		{
+			System.out.println("TAG WAR 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			tag = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+			monat= Integer.toString(c.get(Calendar.MONTH));
+			jahr = Integer.toString(c.get(Calendar.YEAR));
+			
+		}
 		System.out.println(tag + " " + monat + " " + jahr);
 		System.out.println(quelle);
 
