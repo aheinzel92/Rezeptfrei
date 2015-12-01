@@ -56,7 +56,8 @@ public class Rezeptesammlung {
 		}
 		Methoden.deleteDir(file);
 		writer.close();	
-		such.suchen("Lachs mit Sahne");
+		String versuchZumTilde = "flachs tomaen";
+		such.suchen(meth.tildeHinzufuegen(versuchZumTilde));
 		
 	}
 
