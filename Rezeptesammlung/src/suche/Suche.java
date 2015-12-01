@@ -28,6 +28,7 @@ public class Suche {
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
 			System.out.println(doc.get("Beschreibung"));
+			System.out.println(doc.get("Tag") + " " + doc.get("Monat") + " " + doc.get("Jahr"));
 			
 			ergebnisObjekt[i] = new Suchobjekt(doc.get("Quelle"),
 					doc.get("Titel"), doc.get("Bild"), doc.get("Beschreibung"),
