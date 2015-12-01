@@ -54,5 +54,11 @@ public class Methoden {
 			dir.delete();
 		}
 	}
+	
+	// Methode um für jeden Begriff im String eine Tilde anzuhängen
+		public String tildeHinzufuegen(String suchbegriff){
+			String suchbegriff2 = suchbegriff.replaceAll(" ", "~ ");
+			return suchbegriff2;
+		}
 
 }
