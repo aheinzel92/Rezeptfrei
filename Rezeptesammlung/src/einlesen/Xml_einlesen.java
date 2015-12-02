@@ -146,20 +146,30 @@ public class Xml_einlesen {
 		/*
 		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
 		 * zum Index
+		 * Titel und Inhalt bekommen einen Boost für die Suche
 		 */
 
 		Document dokument = new Document();
-		TextField test= new TextField("Quelle", quelle, Field.Store.YES);
-		test.setBoost(1.7f);
-		dokument.add(new TextField("Quelle", quelle, Field.Store.YES));
-		dokument.add(new TextField("Titel", titel, Field.Store.YES));
-		dokument.add(new TextField("Inhalt", inhalt, Field.Store.YES));
-		dokument.add(new TextField("Link", link, Field.Store.YES));
-		dokument.add(new TextField("Tag", tag, Field.Store.YES));
-		dokument.add(new TextField("Monat", monat, Field.Store.YES));
-		dokument.add(new TextField("Jahr", jahr, Field.Store.YES));
-		dokument.add(new TextField("Beschreibung", beschreibung, Field.Store.YES));
-		dokument.add(new TextField("Bild", bild, Field.Store.YES));
+		TextField docQuelle= new TextField("Quelle", quelle, Field.Store.YES);
+		TextField docTitel = new TextField("Titel", titel, Field.Store.YES);
+		TextField docInhalt = new TextField("Inhalt", inhalt, Field.Store.YES);
+		TextField docLink = new TextField("Link", link, Field.Store.YES);
+		TextField docTag = new TextField("Tag", tag, Field.Store.YES);
+		TextField docMonat = new TextField("Monat", monat, Field.Store.YES);
+		TextField docJahr = new TextField("Jahr", jahr, Field.Store.YES);
+		TextField docBeschreibung = new TextField("Beschreibung", beschreibung, Field.Store.YES);
+		TextField docBild = new TextField("Bild", bild, Field.Store.YES);
+		docTitel.setBoost(2.0f);
+		docInhalt.setBoost(1.3f);
+		dokument.add(docQuelle);
+		dokument.add(docTitel);
+		dokument.add(docInhalt);
+		dokument.add(docLink);
+		dokument.add(docTag);
+		dokument.add(docMonat);
+		dokument.add(docJahr);
+		dokument.add(docBeschreibung);
+		dokument.add(docBild);
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}
