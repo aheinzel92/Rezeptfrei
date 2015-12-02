@@ -54,7 +54,7 @@ public class Rezeptesammlung {
 
 			}
 		}
-		Methoden.deleteDir(file);
+//		Methoden.deleteDir(file);
 		writer.close();	
 		String versuchZumTilde = "flachs tomaen";
 		such.suchen(meth.tildeHinzufuegen(versuchZumTilde));
