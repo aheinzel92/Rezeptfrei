@@ -7,6 +7,7 @@ import objekte.Suchobjekt;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -21,9 +22,10 @@ import main.Rezeptesammlung;
 public class Suche {
 	public Suchobjekt[] suchen(String suchbegriff) throws IOException,
 			ParseException {
+		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild"};
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
 		IndexSearcher searcher = new IndexSearcher(dr);
-		QueryParser qp = new QueryParser(Version.LUCENE_45, "Inhalt", Rezeptesammlung.analyzer);
+		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45, felder, Rezeptesammlung.analyzer);
 		Query query = qp.parse(suchbegriff);
 		TopDocs td = searcher.search(query, 10, Sort.INDEXORDER);
 		ScoreDoc[] sd = td.scoreDocs;
