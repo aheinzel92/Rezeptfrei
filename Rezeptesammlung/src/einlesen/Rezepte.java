@@ -2,6 +2,7 @@ package einlesen;
 
 public class Rezepte 
 {
+	//test
 	private String quelle;
 	private String titel;
 	private String inhalt;

@@ -147,6 +147,7 @@ public class Xml_einlesen {
 		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
 		 * zum Index
 		 * Titel und Inhalt bekommen einen Boost für die Suche
+		 * 
 		 */
 
 		Document dokument = new Document();
