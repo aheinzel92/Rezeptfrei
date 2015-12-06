@@ -1,3 +1,4 @@
+
 package oberflaeche;
 
 import javafx.scene.control.Label;
@@ -103,7 +104,6 @@ public class SuchergebnisElement extends HBox {
 		this.inhalt = inhalt;
 		this.beschreibung = beschreibung;
 		System.out.println("lecker.de");
-		
 	}
 	
 	/* Eine Methode die mittels PixelReader() und WritableImage() ein übergebenes Bild beschneidet und

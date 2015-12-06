@@ -16,20 +16,27 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objekte.Suchobjekt;
 import suche.Suche;
 
-public class Gui extends Application {
+public class Gui extends VBox{
 
 	private int suchtreffer;
+	SuchergebnisElement tempRezept;
+	TextField suchfeld = new TextField();
+	VBox suchergebnisse = new VBox();
+	einlesen.Methoden meth;
+	
 
-	public void start(Stage primaryStage) {
+	public Gui(einlesen.Methoden meth) {
 
-		TextField suchfeld = new TextField();
+		this.meth = meth;
 		Button suchtaste = new Button("Suchen");
+			suchtaste.setOnAction(e -> suchen());
 		Label zutatenLabel = new Label("Zutaten: ");
 
 		MenuBar menueLeiste = new MenuBar();
@@ -44,7 +51,7 @@ public class Gui extends Application {
 
 		datei.getItems().add(beenden);
 		
-		SuchergebnisElement tempRezept;
+
 
 		Menu suchoptionen = new Menu("Suchoptionen");
 //		Menu webseite;
@@ -64,10 +71,11 @@ public class Gui extends Application {
 		for (int i = 0; i < auflistung.length; i++) {
 
 			CheckBox cb = new CheckBox(auflistung[i]);
-			cb.setStyle("-fx-text-fill: -fx-text-base-color");
+				cb.setStyle("-fx-text-fill: -fx-text-base-color");
 
 			CustomMenuItem cmi = new CustomMenuItem(cb);
-			cmi.setHideOnClick(false);
+				cmi.setHideOnClick(false);
+				
 			auswahl[i] = cb;
 			suchoptionen.getItems().add(cmi);
 		}
@@ -90,7 +98,7 @@ public class Gui extends Application {
 			untereWerkzeugleiste.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
 			untereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
 
-		VBox suchergebnisse = new VBox();
+
 
 
 		/*
@@ -104,11 +112,32 @@ public class Gui extends Application {
 		 * 
 		 * }
 		 */
+
+
+		ScrollPane scrollpane = new ScrollPane();
+			scrollpane.setContent(suchergebnisse);
+
+		this.getChildren().addAll(obereWerkzeugleiste, scrollpane, untereWerkzeugleiste);
+
+
+
+	}
+	
+	
+	
+	private void eingabeTastePruefen() {
+		
+	}
+
+
+
+	private void suchen(){
 		try{
 		String sucheingabe = suchfeld.getText();
+
 		Suche neueSuche = new Suche();
-		
-			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(sucheingabe);
+			System.out.println("meine suche");
+			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe));
 			suchtreffer = gefundeneRezepte.length;
 			
 			for(int i = 0; i < suchtreffer; i++){
@@ -128,25 +157,7 @@ public class Gui extends Application {
 		}catch(Exception e){
 			
 		};
-
-		ScrollPane scrollpane = new ScrollPane();
-			scrollpane.setContent(suchergebnisse);
-
-		VBox mainlayout = new VBox();
-			mainlayout.getChildren().addAll(obereWerkzeugleiste, scrollpane, untereWerkzeugleiste);
-
-		Scene scene = new Scene(mainlayout);
-
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Omnomnom");
-		primaryStage.show();
-
 	}
-
-	public static void main(String[] args) {
-		launch();
-	}
+	
 
 }
