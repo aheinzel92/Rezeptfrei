@@ -88,7 +88,7 @@ public class Xml_einlesen {
 			tag = pubDat.substring(5, 7);
 			jahr = pubDat.substring(12,16);
 			String monNam = pubDat.substring(8,11);
-			System.out.println(monNam);
+//			System.out.println(monNam);
 			switch(monNam.toLowerCase())
 			{
 			case "jan":
@@ -134,7 +134,7 @@ public class Xml_einlesen {
 		}
 		if(tag.equals("0") || monat.equals("0") || jahr.equals("0"))
 		{
-			System.out.println("TAG WAR 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//			System.out.println("TAG WAR 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			tag = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
 			monat= Integer.toString(c.get(Calendar.MONTH));
 			jahr = Integer.toString(c.get(Calendar.YEAR));
