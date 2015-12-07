@@ -3,15 +3,15 @@ package objekte;
 public class Suchobjekt 
 {
 	//tet
-	String titel;
-	String bild;
-	String beschreibung;
-	String tag;
-	String monat;
-	String jahr;
-	String inhalt;
-	String link;
-	String quelle;
+	String titel = "k.A.";
+	String bild = "k.A.";
+	String beschreibung = "k.A.";
+	String tag = "k.A.";
+	String monat = "k.A.";
+	String jahr = "k.A.";
+	String inhalt = "k.A.";
+	String link = "k.A.";
+	String quelle = "k.A.";
 
 	
 	public Suchobjekt(String quelle, String titel, String bild, String beschreibung, String tag, String monat, String jahr, String inhalt, String link)

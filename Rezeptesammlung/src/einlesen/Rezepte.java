@@ -1,3 +1,5 @@
+// Klasse um eigene Rezepte einzufügen
+
 package einlesen;
 
 public class Rezepte 

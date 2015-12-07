@@ -22,10 +22,10 @@ public class SuchergebnisElement extends HBox {
 	private String link;
 	private String quelle;
 	
-	private String arbeitszeit;
-	private String kochbackzeit;
-	private String schwierigkeit;
-	private String kalorienpp;
+	private String arbeitszeit = "Arbeitszeit";
+	private String kochbackzeit = "Koch- und Backzeit";
+	private String schwierigkeit = "Schwierigkeitsgrad";
+	private String kalorienpp = "Kalorien p.P.";
 	private Label text;
 
 	

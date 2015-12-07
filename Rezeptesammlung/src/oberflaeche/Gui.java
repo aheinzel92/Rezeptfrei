@@ -25,7 +25,7 @@ import suche.Suche;
 
 public class Gui extends VBox{
 
-	private int suchtreffer;
+	private int suchtreffer = 1;
 	SuchergebnisElement tempRezept;
 	TextField suchfeld = new TextField();
 	VBox suchergebnisse = new VBox();
@@ -141,7 +141,7 @@ public class Gui extends VBox{
 			suchtreffer = gefundeneRezepte.length;
 			
 			for(int i = 0; i < suchtreffer; i++){
-						
+						System.out.println("i: " + i);
 				tempRezept = new SuchergebnisElement(gefundeneRezepte[i].getBild(),
 													gefundeneRezepte[i].getBeschreibung(),
 													gefundeneRezepte[i].getTitel(),
@@ -151,7 +151,8 @@ public class Gui extends VBox{
 													gefundeneRezepte[i].getMonat(),
 													gefundeneRezepte[i].getJahr(),
 													gefundeneRezepte[i].getQuelle());
-				
+				suchtreffer++;
+				System.out.println("tut");
 				suchergebnisse.getChildren().add(tempRezept);
 			}
 		}catch(Exception e){

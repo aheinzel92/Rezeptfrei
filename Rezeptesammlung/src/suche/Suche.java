@@ -46,6 +46,15 @@ public class Suche {
 											doc.get("Jahr"),
 											doc.get("Inhalt"), 
 											doc.get("Link"));
+//			System.out.println("--------TEST--------");
+//			System.out.println("\nQuelle: " + doc.get("Quelle"));
+//			System.out.println("\nTitel: " + doc.get("Titel"));
+//			System.out.println("\nBild: " + doc.get("Bild"));
+//			System.out.println("\nBeschreibung: " + doc.get("Beschreibung"));
+//			System.out.println("\nTag - Monat - Jahr: " + doc.get("Tag") + " - " + doc.get("Monat") + " - " + doc.get("Jahr"));
+//			System.out.println("\nInhalt: " + doc.get("Inhalt"));
+//			System.out.println("\nLink: " + doc.get("Link"));
+//			System.out.println("-------ENDE---------");
 		}
 		dr.close();
 		return ergebnisObjekt;

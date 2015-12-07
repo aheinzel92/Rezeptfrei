@@ -58,7 +58,8 @@ public class Methoden {
 	
 	// Methode um für jeden Begriff im String eine Tilde anzuhängen
 		public String tildeHinzufuegen(String suchbegriff){
-			String suchbegriff2 = suchbegriff.replaceAll(" ", "~ ");
+			String suchbegriff2 = suchbegriff.replaceAll(" ", "~ "); //+"~"
+//			suchbegriff2 += "~";
 			return suchbegriff2;
 		}
 
