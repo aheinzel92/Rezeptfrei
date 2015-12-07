@@ -160,6 +160,10 @@ public class Xml_einlesen {
 		TextField docJahr = new TextField("Jahr", jahr, Field.Store.YES);
 		TextField docBeschreibung = new TextField("Beschreibung", beschreibung, Field.Store.YES);
 		TextField docBild = new TextField("Bild", bild, Field.Store.YES);
+		
+		System.out.println(dokument.get("Tag"));
+		System.out.println(dokument.get("Monat"));
+		System.out.println(dokument.get("Jahr"));
 		docTitel.setBoost(2.0f);
 		docInhalt.setBoost(1.3f);
 		dokument.add(docQuelle);
