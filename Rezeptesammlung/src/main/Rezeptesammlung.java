@@ -10,19 +10,17 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.de.GermanAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.SAXException;
 
-import einlesen.*;
+import einlesen.Xml_einlesen;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oberflaeche.Gui;
-import suche.Suche;
 
 
 
@@ -36,8 +34,6 @@ public class Rezeptesammlung extends Application{
 			org.apache.lucene.queryparser.classic.ParseException, ParserConfigurationException, SAXException {
 
 		launch();
-
-		
 	}
 
 	@Override

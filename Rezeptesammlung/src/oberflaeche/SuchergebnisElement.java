@@ -8,6 +8,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import objekte.WebseitencodeReader;
 
 public class SuchergebnisElement extends HBox {
 
@@ -22,12 +23,12 @@ public class SuchergebnisElement extends HBox {
 	private String link;
 	private String quelle;
 	
-	private String arbeitszeit = "Arbeitszeit";
-	private String kochbackzeit = "Koch- und Backzeit";
-	private String schwierigkeit = "Schwierigkeitsgrad";
-	private String kalorienpp = "Kalorien p.P.";
+	private String arbeitszeitLabel = "Arbeitszeit: ";
+	private String kochbackzeitLabel = "Koch- und Backzeit: ";
+	private String schwierigkeitLabel = "Schwierigkeitsgrad: ";
+	private String kalorienppLabel = "Kalorien p.P.: ";
 	private Label text;
-
+	WebseitencodeReader quelltext;
 	
 	/* Konstruktor der Klasse, der falls kein Bild verfügbar ist, ein Standardbild anzeigt
 	 * 
@@ -41,10 +42,18 @@ public class SuchergebnisElement extends HBox {
 							String monat, 
 							String jahr, 
 							String quelle) 
+	
 	{
+		this.titel = titel;
+		this.link = link;
+		try {
+		quelltext = new WebseitencodeReader(link);
+		} catch(Exception e){
+			System.out.println("Rezept von Lecker.de kann noch nicht verarbeitet werden.");
+		}
 		
 		try {
-			Image thumbnail = new Image(bildurl);
+			Image thumbnail = new Image(quelltext.getBildUrl());
 			this.vorschaubild = new ImageView(thumbnail);
 			vorschaubild.setFitWidth(200);
 			vorschaubild.setPreserveRatio(true);
@@ -57,12 +66,12 @@ public class SuchergebnisElement extends HBox {
 		}
 
 		if (quelle.equals("chefkoch.de")) {
-			generiereChefkoch(inhalt, beschreibung);
+			this.getChildren().addAll(vorschaubild, chefkochWebInfosHolen());
 		} else if (quelle.equals("lecker.de")) {
-			generiereLecker(inhalt, beschreibung);
+//			generiereLecker(inhalt, beschreibung);
 		}
 		
-		this.getChildren().addAll(vorschaubild, splitText(beschreibung));
+//		this.getChildren().addAll(vorschaubild, chefkochWebInfosHolen(link));
 	}
 
 	
@@ -72,9 +81,16 @@ public class SuchergebnisElement extends HBox {
 	 * Die Elemente des Arrays, welches durch split() entsteht, werden in einzelne String-Variablen
 	 * gespeichert.
 	 */
-	private Label splitText(String orgText){
+	private Label chefkochWebInfosHolen(){
+		String arbeitszeit = null;
+		String kochbackzeit = null;
+		String schwierigkeit = null;
+		String kalorienpp = null;
 		
-		try{String[] array = orgText.split(" / ");
+		try{
+
+//			System.out.println("tut");
+			String[] array = quelltext.getZubereitungsInfos();
 		
 			arbeitszeit = array[0];
 			kochbackzeit = array[1];
@@ -82,22 +98,27 @@ public class SuchergebnisElement extends HBox {
 			kalorienpp = array[3];
 
 		}catch(Exception e){
-			System.out.println("nix zum zeilen umbrechen gefunden");
+			e.printStackTrace();
+//			System.out.println("nix zum zeilen umbrechen gefunden");
 		}
 	
-		this.text = new Label(arbeitszeit + "\n" + kochbackzeit + "\n" + schwierigkeit + "\n" + kalorienpp);
+		this.text = new Label( titel + "\n" + 
+								arbeitszeitLabel + arbeitszeit + " / " + 
+								kochbackzeitLabel + kochbackzeit + "\n" + 
+								schwierigkeitLabel + schwierigkeit + "\n" + 
+								kalorienppLabel + kalorienpp);
 		this.text.setFont(new Font("Sylfaen",14));
 		
 		return text;
 	}
 	
 	
-	private void generiereChefkoch(String inhalt, String beschreibung){
-		
-		this.inhalt = inhalt;
-		this.beschreibung = beschreibung;
-		System.out.println("chefkoch.de");
-	}
+//	private void generiereChefkoch(String inhalt, String beschreibung){
+//		
+//		this.inhalt = inhalt;
+//		this.beschreibung = beschreibung;
+//		System.out.println("chefkoch.de");
+//	}
 	
 	private void generiereLecker(String inhalt, String beschreibung){
 

@@ -4,13 +4,10 @@ package suche;
 
 import java.io.IOException;
 
-import objekte.Suchobjekt;
-
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -19,6 +16,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.Version;
 
 import main.Rezeptesammlung;
+import objekte.Suchobjekt;
 
 public class Suche {
 	public Suchobjekt[] suchen(String suchbegriff) throws IOException,
@@ -34,8 +32,6 @@ public class Suche {
 		
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
-			System.out.println(doc.get("Beschreibung"));
-			System.out.println(doc.get("Tag") + " " + doc.get("Monat") + " " + doc.get("Jahr"));
 			
 			ergebnisObjekt[i] = new Suchobjekt(doc.get("Quelle"),
 											doc.get("Titel"), 

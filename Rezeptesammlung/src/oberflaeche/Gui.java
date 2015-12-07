@@ -1,10 +1,8 @@
 package oberflaeche;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
@@ -16,27 +14,38 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import objekte.Suchobjekt;
 import suche.Suche;
 
 public class Gui extends VBox{
 
-	private int suchtreffer = 1;
+	private int suchtreffer;
 	SuchergebnisElement tempRezept;
 	TextField suchfeld = new TextField();
 	VBox suchergebnisse = new VBox();
 	einlesen.Methoden meth;
-	
+	Label ergebnisanzahl = new Label();
 
 	public Gui(einlesen.Methoden meth) {
 
 		this.meth = meth;
 		Button suchtaste = new Button("Suchen");
 			suchtaste.setOnAction(e -> suchen());
+
+		suchfeld.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.ENTER) {
+					suchen();
+					keyEvent.consume();
+				}
+			}
+		});
+
 		Label zutatenLabel = new Label("Zutaten: ");
 
 		MenuBar menueLeiste = new MenuBar();
@@ -51,8 +60,6 @@ public class Gui extends VBox{
 
 		datei.getItems().add(beenden);
 		
-
-
 		Menu suchoptionen = new Menu("Suchoptionen");
 //		Menu webseite;
 
@@ -82,16 +89,12 @@ public class Gui extends VBox{
 
 		suchoptionen.getItems().add(new MenuItem("Auswahlmenü schließen"));
 
-
 		menueLeiste.getMenus().addAll(datei, suchoptionen);
 
 		ToolBar obereWerkzeugleiste = new ToolBar();
 			obereWerkzeugleiste.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
 			obereWerkzeugleiste.getItems().addAll(menueLeiste, new Separator(), zutatenLabel, suchfeld, suchtaste);
 			obereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
-
-		Label ergebnisanzahl = new Label(String.format(
-				"Ihre Suche ergab %1$d Treffer", suchtreffer));
 
 		ToolBar untereWerkzeugleiste = new ToolBar();
 			untereWerkzeugleiste.getItems().add(ergebnisanzahl);
@@ -118,45 +121,52 @@ public class Gui extends VBox{
 			scrollpane.setContent(suchergebnisse);
 
 		this.getChildren().addAll(obereWerkzeugleiste, scrollpane, untereWerkzeugleiste);
-
-
-
+		this.setVgrow(scrollpane, Priority.ALWAYS);
 	}
-	
-	
-	
-	private void eingabeTastePruefen() {
-		
-	}
-
-
 
 	private void suchen(){
 		try{
-		String sucheingabe = suchfeld.getText();
+			if(!suchergebnisse.getChildren().isEmpty()){
+				suchergebnisse.getChildren().clear();
+			}
+			
+			String sucheingabe = suchfeld.getText();
+			Suche neueSuche = new Suche();
 
-		Suche neueSuche = new Suche();
-			System.out.println("meine suche");
 			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe));
 			suchtreffer = gefundeneRezepte.length;
-			
-			for(int i = 0; i < suchtreffer; i++){
-						System.out.println("i: " + i);
+			ergebnisanzahl.setText(String.format(
+				"Ihre Suche ergab %1$d Treffer", suchtreffer));
+			System.out.println("SUCHTREFFER: " + suchtreffer);
+
+			for (int i = 0; i < suchtreffer; i++) {
 				tempRezept = new SuchergebnisElement(gefundeneRezepte[i].getBild(),
-													gefundeneRezepte[i].getBeschreibung(),
-													gefundeneRezepte[i].getTitel(),
-													gefundeneRezepte[i].getInhalt(),
-													gefundeneRezepte[i].getLink(),
-													gefundeneRezepte[i].getTag(),
-													gefundeneRezepte[i].getMonat(),
-													gefundeneRezepte[i].getJahr(),
-													gefundeneRezepte[i].getQuelle());
-				suchtreffer++;
-				System.out.println("tut");
+														gefundeneRezepte[i].getBeschreibung(),
+														gefundeneRezepte[i].getTitel(),
+														gefundeneRezepte[i].getInhalt(),
+														gefundeneRezepte[i].getLink(),
+														gefundeneRezepte[i].getTag(),
+														gefundeneRezepte[i].getMonat(),
+														gefundeneRezepte[i].getJahr(),
+														gefundeneRezepte[i].getQuelle());
+				
+//				System.out.println("--------TEST--------");
+//				System.out.println("Test: " + gefundeneRezepte[i].getBild() 
+//														+ "\n " + gefundeneRezepte[i].getBeschreibung()
+//														+ "\n " + gefundeneRezepte[i].getTitel()
+//														+ "\n " + gefundeneRezepte[i].getInhalt()
+//														+ "\n " + gefundeneRezepte[i].getLink()
+//														+ "\n " + gefundeneRezepte[i].getTag()
+//														+ "\n " + gefundeneRezepte[i].getMonat()
+//														+ "\n " + gefundeneRezepte[i].getJahr()
+//														+ "\n " + gefundeneRezepte[i].getQuelle());
+//				
+//				System.out.println("--------ENDE--------");
 				suchergebnisse.getChildren().add(tempRezept);
+//				System.out.println("ende");
 			}
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		};
 	}
 	
