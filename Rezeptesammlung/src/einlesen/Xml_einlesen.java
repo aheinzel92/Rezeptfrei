@@ -140,8 +140,8 @@ public class Xml_einlesen {
 			jahr = Integer.toString(c.get(Calendar.YEAR));
 			
 		}
-		System.out.println(tag + " " + monat + " " + jahr);
-		System.out.println(quelle);
+//		System.out.println(tag + " " + monat + " " + jahr);
+//		System.out.println(quelle);
 
 		/*
 		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
@@ -161,9 +161,6 @@ public class Xml_einlesen {
 		TextField docBeschreibung = new TextField("Beschreibung", beschreibung, Field.Store.YES);
 		TextField docBild = new TextField("Bild", bild, Field.Store.YES);
 		
-		System.out.println(dokument.get("Tag"));
-		System.out.println(dokument.get("Monat"));
-		System.out.println(dokument.get("Jahr"));
 		docTitel.setBoost(2.0f);
 		docInhalt.setBoost(1.3f);
 		dokument.add(docQuelle);
@@ -174,7 +171,10 @@ public class Xml_einlesen {
 		dokument.add(docMonat);
 		dokument.add(docJahr);
 		dokument.add(docBeschreibung);
-		dokument.add(docBild);
+		dokument.add(docBild);		
+//		System.out.println(dokument.get("Tag"));
+//		System.out.println(dokument.get("Monat"));
+//		System.out.println(dokument.get("Jahr"));
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}

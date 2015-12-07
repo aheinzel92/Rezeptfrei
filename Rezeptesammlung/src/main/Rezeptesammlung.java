@@ -50,7 +50,7 @@ public class Rezeptesammlung extends Application{
 		einlesen.Methoden meth = new einlesen.Methoden();
 //		Suche such = new Suche();
 		
-		File file = new File("C:/Users/Gabriele/Documents/FH Hof/Semester 5/PraktikumProgrammieren/PraktikumProgrammieren/Archive/rssfiles");
+		File file = new File("C:/SWP/Archive/rssfiles");
 		LinkedList<File> dirList = meth.listDir(file);
 
 		meth.listDir(file);
