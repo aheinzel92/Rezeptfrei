@@ -3,6 +3,7 @@ package oberflaeche;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
@@ -19,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import objekte.Suchobjekt;
 import suche.Suche;
 
@@ -57,8 +59,18 @@ public class Gui extends VBox{
 						Platform.exit();
 					}
 				});
+				
+		MenuItem neuesRezept = new MenuItem("Rezept eintragen");
+				neuesRezept.setOnAction(new EventHandler<ActionEvent>() {
+					public void handle(ActionEvent event){
+						Scene neuesRezeptScene = new Scene(new RezeptAnlegen());
+						Stage neuesRezeptStage = new Stage();
+						neuesRezeptStage.setScene(neuesRezeptScene);
+						neuesRezeptStage.show();
+					}
+				});
 
-		datei.getItems().add(beenden);
+		datei.getItems().addAll(beenden, neuesRezept);
 		
 		Menu suchoptionen = new Menu("Suchoptionen");
 //		Menu webseite;
@@ -94,12 +106,12 @@ public class Gui extends VBox{
 		ToolBar obereWerkzeugleiste = new ToolBar();
 			obereWerkzeugleiste.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
 			obereWerkzeugleiste.getItems().addAll(menueLeiste, new Separator(), zutatenLabel, suchfeld, suchtaste);
-			obereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
+//			obereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
 
 		ToolBar untereWerkzeugleiste = new ToolBar();
 			untereWerkzeugleiste.getItems().add(ergebnisanzahl);
 			untereWerkzeugleiste.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
-			untereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
+//			untereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
 
 
 
@@ -137,7 +149,7 @@ public class Gui extends VBox{
 			suchtreffer = gefundeneRezepte.length;
 			ergebnisanzahl.setText(String.format(
 				"Ihre Suche ergab %1$d Treffer", suchtreffer));
-			System.out.println("SUCHTREFFER: " + suchtreffer);
+//			System.out.println("SUCHTREFFER: " + suchtreffer);
 
 			for (int i = 0; i < suchtreffer; i++) {
 				tempRezept = new SuchergebnisElement(gefundeneRezepte[i].getBild(),

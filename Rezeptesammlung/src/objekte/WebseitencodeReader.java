@@ -22,7 +22,7 @@ public class WebseitencodeReader {
 		 zubereitugnsInfos = zubereitugnsinformatinFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
 		 
-		 // Gibt das Array aus
+//		  Gibt das Array aus
 //		 for (int i = 0; i < rezeptTags.length; i++) {
 //		   System.out.println(rezeptTags[i]);
 //		 }
@@ -81,7 +81,6 @@ public class WebseitencodeReader {
 		 String quellcodeAbschnitt = (quellcode.substring((schnitt1), (schnitt2)));
 //		 System.out.println(quellcodeAbschnitt);
 		 
-		 
 		 try{
 			 kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("cookTime") - 28));
 		 }catch(Exception e){
@@ -89,7 +88,6 @@ public class WebseitencodeReader {
 		 }
 		 
 		 String arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("prepTime") - 26));
-
 		 String schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
 		 String kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 38), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 72));
 		 
@@ -107,7 +105,7 @@ public class WebseitencodeReader {
 	public String vorschaubildFiltern(String quellcode){
 		
 		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 116), (quellcode.indexOf("slideshow-imagelink") - 32));
-		System.out.println(bild);
+//		System.out.println(bild);
 		return bild;
 	}
 	
