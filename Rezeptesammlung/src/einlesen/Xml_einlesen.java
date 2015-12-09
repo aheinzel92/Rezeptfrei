@@ -70,11 +70,11 @@ public class Xml_einlesen {
 		String pubDat = items.getElementsByTagName("pubDate").item(0).getTextContent();
 		String inhalt = text.getTextContent();
 		
-		String arbeitszeit;
-		String kochbackzeit;
-		String schwierigkeit;
-		String kalorienpp;
-		String tags;	
+//		String arbeitszeit;
+//		String kochbackzeit;
+//		String schwierigkeit;
+//		String kalorienpp;
+//		String tags;	
 		String quelle;
 		String tag;
 		String monat;
@@ -138,13 +138,13 @@ public class Xml_einlesen {
 				monat="0";
 				break;
 			}
-			WebseitencodeReader codeReader = new WebseitencodeReader(link);
-			String[] zubInfo = codeReader.getZubereitungsInfos();
-			arbeitszeit = zubInfo[0];
-			kochbackzeit = zubInfo[1];
-			schwierigkeit = zubInfo[2];
-			kalorienpp = zubInfo[3];
-			bild = codeReader.getBildUrl();
+//			WebseitencodeReader codeReader = new WebseitencodeReader(link);
+//			String[] zubInfo = codeReader.getZubereitungsInfos();
+//			arbeitszeit = zubInfo[0];
+//			kochbackzeit = zubInfo[1];
+//			schwierigkeit = zubInfo[2];
+//			kalorienpp = zubInfo[3];
+//			bild = codeReader.getBildUrl();
 			
 		}
 		if(tag.equals("0") || monat.equals("0") || jahr.equals("0"))
