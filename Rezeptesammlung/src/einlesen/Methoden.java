@@ -21,15 +21,25 @@ public class Methoden {
 			for(int i = 0; i< files.length; i++){
 //				System.out.printf(files[i].getAbsolutePath());
 				if(files[i].isDirectory()){
+					if(files[i].getAbsolutePath().contains("timeless")){
+						
+					}
+					else{
 //					System.out.print(" (Ordner)\n");
 					result.addAll(listDir(files[i]));
+					}
 				}
 //				else{
 //					System.out.print(" (Datei)\n");
 //				}
 				if(files[i].getAbsolutePath().contains("xml")){
+					if(files[i].getAbsolutePath().contains("timeless")){
+						
+					}
+					else{
 					System.out.println(files[i].getAbsolutePath());
 					result.add(files[i]);
+					}
 				}
 //				else{
 //					files[i].delete();
