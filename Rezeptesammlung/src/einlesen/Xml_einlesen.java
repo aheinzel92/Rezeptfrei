@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import main.Rezeptesammlung;
+import objekte.WebseitencodeReader;
 
 public class Xml_einlesen {
 
@@ -60,27 +61,33 @@ public class Xml_einlesen {
 		Element items = (Element) doku.getElementsByTagName("item").item(0);
 		Element image = (Element) doku.getElementsByTagName("image").item(0);
 		
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Calendar c = df.getCalendar();
-        c.setTimeInMillis(System.currentTimeMillis());
-       
+		DatumAusgabe aktDatum = new DatumAusgabe();
+		String[] datum;
 
 		String titel = items.getElementsByTagName("title").item(0).getTextContent();
 		String beschreibung = items.getElementsByTagName("description").item(0).getTextContent();
 		String link = items.getElementsByTagName("link").item(0).getTextContent();
 		String pubDat = items.getElementsByTagName("pubDate").item(0).getTextContent();
-		String bild = image.getElementsByTagName("url").item(0).getTextContent();
 		String inhalt = text.getTextContent();
+		
+		String arbeitszeit;
+		String kochbackzeit;
+		String schwierigkeit;
+		String kalorienpp;
+		String tags;	
 		String quelle;
 		String tag;
 		String monat;
 		String jahr;
+		String bild = "n.A";
 		if(link.contains("www.lecker.de"))
 		{
 			quelle = "lecker.de";
 			tag = pubDat.substring(8, 10);
 			monat = pubDat.substring(5,7);
 			jahr = pubDat.substring(0,4);
+			WebseitencodeReader codeReader = new WebseitencodeReader(link);
+			
 		}
 		else
 		{
@@ -131,13 +138,22 @@ public class Xml_einlesen {
 				monat="0";
 				break;
 			}
+			WebseitencodeReader codeReader = new WebseitencodeReader(link);
+			String[] zubInfo = codeReader.getZubereitungsInfos();
+			arbeitszeit = zubInfo[0];
+			kochbackzeit = zubInfo[1];
+			schwierigkeit = zubInfo[2];
+			kalorienpp = zubInfo[3];
+			bild = codeReader.getBildUrl();
+			
 		}
 		if(tag.equals("0") || monat.equals("0") || jahr.equals("0"))
 		{
 //			System.out.println("TAG WAR 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			tag = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
-			monat= Integer.toString(c.get(Calendar.MONTH));
-			jahr = Integer.toString(c.get(Calendar.YEAR));
+			datum = aktDatum.getDatum();
+			tag = datum [0];
+			monat = datum [1];
+			jahr = datum [2];
 			
 		}
 //		System.out.println(tag + " " + monat + " " + jahr);
