@@ -66,11 +66,33 @@ public class Methoden {
 		}
 	}
 	
-	// Methode um für jeden Begriff im String eine Tilde anzuhängen
+	// Methode um für jeden Begriff im String eine Tilde anzuhängen und die Auswahl für eine or bzw and Suche
 		public String tildeHinzufuegen(String suchbegriff){
-			String suchbegriff2 = suchbegriff.replaceAll(" ", "~ "); //+"~"
-//			suchbegriff2 += "~";
-			return suchbegriff2;
+			boolean hakenGesetzt = false;
+			String suchbegriff2;
+			if(hakenGesetzt == true){
+				suchbegriff2 = suchbegriff.replaceAll(" ", "~ "); //+"~"
+				suchbegriff2 = suchbegriff2 + "~";
+				return suchbegriff2;
+			}
+			else{
+				suchbegriff = "+" + suchbegriff;
+				suchbegriff2 = suchbegriff.replaceAll(" ", "~ +");
+				suchbegriff2 = suchbegriff2 + "~";
+				return suchbegriff2;
+			}	
 		}
 
+		// Methode um aus dem Stringarray mit den ganzen Tags einen einzelnen String zu machen
+		public static String arrayToString(String[] tagsArray){
+			String tagsString = "";
+			for(int i = 0; i<tagsArray.length; i++){
+				tagsString = tagsString + tagsArray[i];
+				if(i < (tagsArray.length-1)){
+					tagsString += ", ";
+				}
+			}
+			return tagsString;
+		}
+		
 }
