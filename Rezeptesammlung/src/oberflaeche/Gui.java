@@ -11,9 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -32,6 +34,9 @@ public class Gui extends VBox{
 	VBox suchergebnisse = new VBox();
 	einlesen.Methoden meth;
 	Label ergebnisanzahl = new Label();
+	
+	RadioButton oderSuche;
+	RadioButton undSuche;
 
 	public Gui(einlesen.Methoden meth) {
 
@@ -102,31 +107,22 @@ public class Gui extends VBox{
 		suchoptionen.getItems().add(new MenuItem("Auswahlmenü schließen"));
 
 		menueLeiste.getMenus().addAll(datei, suchoptionen);
+		
+		oderSuche = new RadioButton("Oder-Suche");
+		undSuche = new RadioButton("Und-Suche");
+			undSuche.setSelected(true);
+		ToggleGroup radioButtonGruppe = new ToggleGroup();
+			radioButtonGruppe.getToggles().addAll(undSuche, oderSuche);
 
 		ToolBar obereWerkzeugleiste = new ToolBar();
 			obereWerkzeugleiste.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
-			obereWerkzeugleiste.getItems().addAll(menueLeiste, new Separator(), zutatenLabel, suchfeld, suchtaste);
+			obereWerkzeugleiste.getItems().addAll(menueLeiste, new Separator(), zutatenLabel, suchfeld, suchtaste, undSuche, oderSuche);
 //			obereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
 
 		ToolBar untereWerkzeugleiste = new ToolBar();
 			untereWerkzeugleiste.getItems().add(ergebnisanzahl);
 			untereWerkzeugleiste.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
 //			untereWerkzeugleiste.setStyle("-fx-background-color: bisque;");
-
-
-
-
-		/*
-		 * try{ suchtreffer = rezepteFoundList.length; for(int i = 0; i <
-		 * rezepteFoundList.length; i++){
-		 * 
-		 * tempRezept = rezeptearray[i];
-		 * suchergebnisse.getChildren().add(tempRezept);
-		 * 
-		 * } catch (Exception e){
-		 * 
-		 * }
-		 */
 
 
 		ScrollPane scrollpane = new ScrollPane();
@@ -145,7 +141,7 @@ public class Gui extends VBox{
 			String sucheingabe = suchfeld.getText();
 			Suche neueSuche = new Suche();
 
-			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe));
+			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()));
 			suchtreffer = gefundeneRezepte.length;
 			ergebnisanzahl.setText(String.format(
 				"Ihre Suche ergab %1$d Treffer", suchtreffer));
@@ -161,22 +157,11 @@ public class Gui extends VBox{
 														gefundeneRezepte[i].getMonat(),
 														gefundeneRezepte[i].getJahr(),
 														gefundeneRezepte[i].getQuelle());
-				
-//				System.out.println("--------TEST--------");
-//				System.out.println("Test: " + gefundeneRezepte[i].getBild() 
-//														+ "\n " + gefundeneRezepte[i].getBeschreibung()
-//														+ "\n " + gefundeneRezepte[i].getTitel()
-//														+ "\n " + gefundeneRezepte[i].getInhalt()
-//														+ "\n " + gefundeneRezepte[i].getLink()
-//														+ "\n " + gefundeneRezepte[i].getTag()
-//														+ "\n " + gefundeneRezepte[i].getMonat()
-//														+ "\n " + gefundeneRezepte[i].getJahr()
-//														+ "\n " + gefundeneRezepte[i].getQuelle());
-//				
-//				System.out.println("--------ENDE--------");
+
 				suchergebnisse.getChildren().add(tempRezept);
-//				System.out.println("ende");
+
 			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		};

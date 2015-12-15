@@ -67,15 +67,17 @@ public class Methoden {
 	}
 	
 	// Methode um für jeden Begriff im String eine Tilde anzuhängen und die Auswahl für eine or bzw and Suche
-		public String tildeHinzufuegen(String suchbegriff){
-			boolean hakenGesetzt = false;
+		public String tildeHinzufuegen(String suchbegriff, boolean istOderSuche){
+//			boolean hakenGesetzt = false;
 			String suchbegriff2;
-			if(hakenGesetzt == true){
+			if(istOderSuche == true){
+				// Oder-Suche-Einstellungen
 				suchbegriff2 = suchbegriff.replaceAll(" ", "~ "); //+"~"
 				suchbegriff2 = suchbegriff2 + "~";
 				return suchbegriff2;
 			}
 			else{
+				// Und-Suche-Einstellungen
 				suchbegriff = "+" + suchbegriff;
 				suchbegriff2 = suchbegriff.replaceAll(" ", "~ +");
 				suchbegriff2 = suchbegriff2 + "~";
