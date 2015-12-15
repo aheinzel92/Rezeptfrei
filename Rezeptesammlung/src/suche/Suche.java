@@ -41,7 +41,13 @@ public class Suche {
 											doc.get("Monat"), 
 											doc.get("Jahr"),
 											doc.get("Inhalt"), 
-											doc.get("Link"));
+											doc.get("Link"),
+											doc.get("Arbeitszeit"),
+											doc.get("KochBackzeit"),
+											doc.get("Schwierigkeit"),
+											doc.get("KalorienPP"),
+											doc.get("Tags"));
+			System.out.println(ergebnisObjekt[i].toString());
 //			System.out.println("--------TEST--------");
 //			System.out.println("\nQuelle: " + doc.get("Quelle"));
 //			System.out.println("\nTitel: " + doc.get("Titel"));

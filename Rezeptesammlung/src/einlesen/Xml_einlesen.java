@@ -60,7 +60,7 @@ public class Xml_einlesen {
 		Element text = (Element) doku.getElementsByTagName("ExtractedText").item(0);
 		Element items = (Element) doku.getElementsByTagName("item").item(0);
 		Element image = (Element) doku.getElementsByTagName("image").item(0);
-		
+
 		DatumAusgabe aktDatum = new DatumAusgabe();
 		String[] datum;
 
@@ -69,35 +69,35 @@ public class Xml_einlesen {
 		String link = items.getElementsByTagName("link").item(0).getTextContent();
 		String pubDat = items.getElementsByTagName("pubDate").item(0).getTextContent();
 		String inhalt = text.getTextContent();
-		
-//		String arbeitszeit;
-//		String kochbackzeit;
-//		String schwierigkeit;
-//		String kalorienpp;
-//		String tags;	
+
+		String arbeitszeit = "n.A.";
+		String kochbackzeit = "n.A.";
+		String schwierigkeit = "n.A.";
+		String kalorienpp = "n.A.";
+		String tags = "n.A.";
 		String quelle;
 		String tag;
 		String monat;
 		String jahr;
 		String bild = "n.A";
-		if(link.contains("www.lecker.de"))
-		{
+
+		if (link.contains("www.lecker.de")) {
 			quelle = "lecker.de";
 			tag = pubDat.substring(8, 10);
-			monat = pubDat.substring(5,7);
-			jahr = pubDat.substring(0,4);
-			WebseitencodeReader codeReader = new WebseitencodeReader(link);
-			
-		}
-		else
-		{
+			monat = pubDat.substring(5, 7);
+			jahr = pubDat.substring(0, 4);
+			arbeitszeit = "n.A.";
+			kochbackzeit = "n.A.";
+			schwierigkeit = "n.A.";
+			kalorienpp = "n.A.";
+
+		} else {
 			quelle = "chefkoch.de";
 			tag = pubDat.substring(5, 7);
-			jahr = pubDat.substring(12,16);
-			String monNam = pubDat.substring(8,11);
-//			System.out.println(monNam);
-			switch(monNam.toLowerCase())
-			{
+			jahr = pubDat.substring(12, 16);
+			String monNam = pubDat.substring(8, 11);
+
+			switch (monNam.toLowerCase()) {
 			case "jan":
 				monat = "1";
 				break;
@@ -135,39 +135,35 @@ public class Xml_einlesen {
 				monat = "12";
 				break;
 			default:
-				monat="0";
+				monat = "0";
 				break;
 			}
-//			WebseitencodeReader codeReader = new WebseitencodeReader(link);
-//			String[] zubInfo = codeReader.getZubereitungsInfos();
-//			arbeitszeit = zubInfo[0];
-//			kochbackzeit = zubInfo[1];
-//			schwierigkeit = zubInfo[2];
-//			kalorienpp = zubInfo[3];
-//			bild = codeReader.getBildUrl();
-			
+
+			WebseitencodeReader codeReader = new WebseitencodeReader(link);
+			String[] zubInfo = codeReader.getZubereitungsInfos();
+
+			arbeitszeit = zubInfo[0];
+			kochbackzeit = zubInfo[1];
+			schwierigkeit = zubInfo[2];
+			kalorienpp = zubInfo[3];
+			bild = codeReader.getBildUrl();
+
 		}
-		if(tag.equals("0") || monat.equals("0") || jahr.equals("0"))
-		{
-//			System.out.println("TAG WAR 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		if (tag.equals("0") || monat.equals("0") || jahr.equals("0")) {
 			datum = aktDatum.getDatum();
-			tag = datum [0];
-			monat = datum [1];
-			jahr = datum [2];
-			
+			tag = datum[0];
+			monat = datum[1];
+			jahr = datum[2];
 		}
-//		System.out.println(tag + " " + monat + " " + jahr);
-//		System.out.println(quelle);
 
 		/*
 		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
-		 * zum Index
-		 * Titel und Inhalt bekommen einen Boost für die Suche
+		 * zum Index Titel und Inhalt bekommen einen Boost für die Suche
 		 * 
 		 */
 
 		Document dokument = new Document();
-		TextField docQuelle= new TextField("Quelle", quelle, Field.Store.YES);
+		TextField docQuelle = new TextField("Quelle", quelle, Field.Store.YES);
 		TextField docTitel = new TextField("Titel", titel, Field.Store.YES);
 		TextField docInhalt = new TextField("Inhalt", inhalt, Field.Store.YES);
 		TextField docLink = new TextField("Link", link, Field.Store.YES);
@@ -176,7 +172,12 @@ public class Xml_einlesen {
 		TextField docJahr = new TextField("Jahr", jahr, Field.Store.YES);
 		TextField docBeschreibung = new TextField("Beschreibung", beschreibung, Field.Store.YES);
 		TextField docBild = new TextField("Bild", bild, Field.Store.YES);
-		
+		TextField docArbeitszeit = new TextField("Arbeitszeit", arbeitszeit, Field.Store.YES);
+		TextField docKochbackzeit = new TextField("KochBackzeit", kochbackzeit, Field.Store.YES);
+		TextField docSchwierigkeit = new TextField("Schwierigkeit", schwierigkeit, Field.Store.YES);
+		TextField docKalorienPP = new TextField("KalorienPP", kalorienpp, Field.Store.YES);
+		TextField docTags = new TextField("Tags", tags, Field.Store.YES);
+
 		docTitel.setBoost(2.0f);
 		docInhalt.setBoost(1.3f);
 		dokument.add(docQuelle);
@@ -187,10 +188,14 @@ public class Xml_einlesen {
 		dokument.add(docMonat);
 		dokument.add(docJahr);
 		dokument.add(docBeschreibung);
-		dokument.add(docBild);		
-//		System.out.println(dokument.get("Tag"));
-//		System.out.println(dokument.get("Monat"));
-//		System.out.println(dokument.get("Jahr"));
+		dokument.add(docBild);
+		dokument.add(docArbeitszeit);
+		dokument.add(docKochbackzeit);
+		dokument.add(docSchwierigkeit);
+		dokument.add(docSchwierigkeit);
+		dokument.add(docKalorienPP);
+		dokument.add(docTags);
+
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}

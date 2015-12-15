@@ -12,9 +12,14 @@ public class Suchobjekt
 	String inhalt = "k.A.";
 	String link = "k.A.";
 	String quelle = "k.A.";
+	String arbeitszeit = "k.A.";
+	String kochBackzeit = "k.A";
+	String schwierigkeit = "k.A";
+	String kalorienPP = "k.A.";
+	String tags = "k.A";
 
 	
-	public Suchobjekt(String quelle, String titel, String bild, String beschreibung, String tag, String monat, String jahr, String inhalt, String link)
+	public Suchobjekt(String quelle, String titel, String bild, String beschreibung, String tag, String monat, String jahr, String inhalt, String link, String arbeitszeit, String kochbackzeit, String schwierigkeit, String kalorienPP, String tags)
 	{
 		this.quelle = quelle;
 		this.titel = titel;
@@ -25,6 +30,38 @@ public class Suchobjekt
 		this.jahr = jahr;
 		this.inhalt = inhalt;
 		this.link = link;
+		this.arbeitszeit = arbeitszeit;
+		this.kochBackzeit = kochbackzeit;
+		this.schwierigkeit=schwierigkeit;
+		this.kalorienPP = kalorienPP;
+		this.tags = tags;
+	}
+
+	public String toString() {
+		return "Suchobjekt [titel=" + titel + ", bild=" + bild + ", beschreibung=" + beschreibung + ", Datum=" + tag
+				+ "-" + monat + "-" + jahr + ", link=" + link + ", quelle=" + quelle
+				+ ", arbeitszeit=" + arbeitszeit + ", kochBackzeit=" + kochBackzeit + ", schwierigkeit=" + schwierigkeit
+				+ ", kalorienPP=" + kalorienPP + ", tags=" + tags + "]";
+	}
+
+	public String getArbeitszeit() {
+		return arbeitszeit;
+	}
+
+	public String getKochBackzeit() {
+		return kochBackzeit;
+	}
+
+	public String getSchwierigkeit() {
+		return schwierigkeit;
+	}
+
+	public String getKalorienPP() {
+		return kalorienPP;
+	}
+
+	public String getTags() {
+		return tags;
 	}
 
 	public String getTitel() {
