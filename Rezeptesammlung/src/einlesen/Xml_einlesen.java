@@ -59,7 +59,7 @@ public class Xml_einlesen {
 
 		Element text = (Element) doku.getElementsByTagName("ExtractedText").item(0);
 		Element items = (Element) doku.getElementsByTagName("item").item(0);
-		Element image = (Element) doku.getElementsByTagName("image").item(0);
+		Element xmlBild = (Element) doku.getElementsByTagName("image").item(0);
 
 		DatumAusgabe aktDatum = new DatumAusgabe();
 		String[] datum;
@@ -76,9 +76,9 @@ public class Xml_einlesen {
 		String kalorienpp = "n.A.";
 		String tags = "n.A.";
 		String quelle;
-		String tag;
-		String monat;
-		String jahr;
+		String tag = "0";
+		String monat = "0";
+		String jahr = "0";
 		String bild = "n.A";
 
 		if (link.contains("www.lecker.de")) {
@@ -86,6 +86,7 @@ public class Xml_einlesen {
 			tag = pubDat.substring(8, 10);
 			monat = pubDat.substring(5, 7);
 			jahr = pubDat.substring(0, 4);
+			bild = "nicht verfügbar";
 			arbeitszeit = "n.A.";
 			kochbackzeit = "n.A.";
 			schwierigkeit = "n.A.";

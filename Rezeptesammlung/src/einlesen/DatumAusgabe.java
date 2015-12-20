@@ -6,17 +6,6 @@ import java.util.Calendar;
 
 public class DatumAusgabe 
 {
-	
-//	public static void main(String[] args)
-//	{
-//		DatumAusgabe da = new DatumAusgabe();
-//		String[] datum = da.getDatum();
-//		String tag = datum [0];
-//		String monat = datum [1];
-//		String jahr = datum [2];
-//		
-//		System.out.println(tag + " " + monat + " " + jahr);
-//	}
 	public String[] getDatum()
 	{
 		String[] datum = new String[3];
@@ -34,7 +23,4 @@ public class DatumAusgabe
 		
 		return datum;
 	}
-	
-	
-
 }
