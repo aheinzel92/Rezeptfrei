@@ -141,6 +141,7 @@ public class Xml_einlesen {
 			}
 
 			WebseitencodeReader codeReader = new WebseitencodeReader(link);
+			tags = codeReader.getRezeptTagsRueck();
 			String[] zubInfo = codeReader.getZubereitungsInfos();
 
 			arbeitszeit = zubInfo[0];
@@ -193,11 +194,12 @@ public class Xml_einlesen {
 		dokument.add(docArbeitszeit);
 		dokument.add(docKochbackzeit);
 		dokument.add(docSchwierigkeit);
-		dokument.add(docSchwierigkeit);
 		dokument.add(docKalorienPP);
 		dokument.add(docTags);
-
+		
+		System.out.println(dokument.get("Tags"));
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}
+
 }
