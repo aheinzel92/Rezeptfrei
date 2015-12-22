@@ -21,7 +21,7 @@ import objekte.Suchobjekt;
 public class Suche {
 	public Suchobjekt[] suchen(String suchbegriff) throws IOException,
 			ParseException {
-		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild"};
+		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild", "Arbeitszeit", "KochBackzeit", "Schwierigkeit", "KalorienPP", "Tags"};
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
 		IndexSearcher searcher = new IndexSearcher(dr);
 		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45, felder, Rezeptesammlung.analyzer);
