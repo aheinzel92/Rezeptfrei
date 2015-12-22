@@ -51,7 +51,7 @@ public class Rezeptesammlung extends Application{
 
 		meth.listDir(file);
 //		System.out.println(dirList.size());
-		
+//		
 //		for (int i = 0; i < dirList.size(); i++) {
 //			try {
 //				Xml_einlesen.Einlesen(dirList.get(i).getAbsolutePath());

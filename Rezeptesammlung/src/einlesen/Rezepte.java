@@ -12,7 +12,7 @@ import main.Rezeptesammlung;
 
 public class Rezepte {
 	private String quelle = "eigene";
-	private String bild = "k.A";
+	private String bild = "oberflaeche/grafik/null.jpg";
 	private String tag;
 	private String monat;
 	private String jahr;
@@ -31,8 +31,8 @@ public class Rezepte {
 
 		TextField dokQuelle = new TextField("Quelle", quelle, Field.Store.YES);
 		TextField dokTitel = new TextField("Titel", etitel, Field.Store.YES);
-		TextField dokInhalt = new TextField("Inhalt", "0", Field.Store.YES);
-		TextField dokLink = new TextField("Link", "0.", Field.Store.YES);
+		TextField dokInhalt = new TextField("Inhalt", "k.A", Field.Store.YES);
+		TextField dokLink = new TextField("Link", "k.A.", Field.Store.YES);
 		TextField dokTag = new TextField("Tag", tag, Field.Store.YES);
 		TextField dokMonat = new TextField("Monat", monat, Field.Store.YES);
 		TextField dokJahr = new TextField("Jahr", jahr, Field.Store.YES);

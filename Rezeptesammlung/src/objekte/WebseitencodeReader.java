@@ -12,9 +12,14 @@ public class WebseitencodeReader {
 	String[] rezeptTags;
 	String[] zubereitugnsInfos;
 	String bildUrl;
+	String rezeptTagsRueck;
 	
 	
-	 public WebseitencodeReader(String rezeptUrl) { 
+	 public String getRezeptTagsRueck() {
+		return rezeptTagsRueck;
+	}
+
+	public WebseitencodeReader(String rezeptUrl) { 
 		 
 		 // Quellcode wird in Variable gespeichert
 		 String quellcode = seiteninhaltHolen(rezeptUrl);
@@ -64,11 +69,11 @@ public class WebseitencodeReader {
 		 // Der Code wird nach bestimmten Wörtern gefiltert, die Differenz wird herausgeschnitten und in eine Variable gespeichert
 		 int schnitt1 = (quellcode.indexOf("Tags:") + 6);
 		 int schnitt2 = (quellcode.indexOf("robots") - 15);
-		 String rezeptTags = (quellcode.substring((schnitt1), (schnitt2)));
-		 	rezeptTags = umlauteErsetzen(rezeptTags);
+		 rezeptTagsRueck = (quellcode.substring((schnitt1), (schnitt2)));
+		 	rezeptTagsRueck = umlauteErsetzen(rezeptTagsRueck);
 		 
 		 // Legt die einzelnen Kategorien in ein Array
-		 String[] einzelKat = rezeptTags.split(", ");
+		 String[] einzelKat = rezeptTagsRueck.split(", ");
 
 		 return einzelKat;
 	}
