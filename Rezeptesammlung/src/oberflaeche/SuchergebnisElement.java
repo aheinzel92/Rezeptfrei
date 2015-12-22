@@ -47,13 +47,13 @@ public class SuchergebnisElement extends HBox {
 		this.titel = titel;
 		this.link = link;
 		try {
-		quelltext = new WebseitencodeReader(link);
-		} catch(Exception e){
+			quelltext = new WebseitencodeReader(link);
+		} catch (Exception e) {
 			System.out.println("Rezept von Lecker.de kann noch nicht verarbeitet werden.");
 		}
 		
 		try {
-			Image thumbnail = new Image(quelltext.getBildUrl());
+			Image thumbnail = new Image(bildurl);
 			this.vorschaubild = new ImageView(thumbnail);
 			vorschaubild.setFitWidth(200);
 			vorschaubild.setPreserveRatio(true);

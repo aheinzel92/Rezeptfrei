@@ -38,6 +38,22 @@ public class Gui extends VBox{
 	RadioButton oderSuche;
 	RadioButton undSuche;
 
+	String[] suchkategorien = { "Vorspeise", 
+			"Hauptspeise", 
+			"Dessert",
+			"Beilage", 
+			"Salat", 
+			"Suppen", 
+			"Back-/Süßspeisen", 
+			"Getränke",	
+			"Frühstück" };
+
+CheckBox[] auswahl = new CheckBox[suchkategorien.length];
+	
+	
+	
+	
+	
 	public Gui(einlesen.Methoden meth) {
 
 		this.meth = meth;
@@ -80,21 +96,11 @@ public class Gui extends VBox{
 		Menu suchoptionen = new Menu("Suchoptionen");
 //		Menu webseite;
 
-		String[] auflistung = { "Vorspeise", 
-								"Hauptspeise", 
-								"Dessert",
-								"Beilage", 
-								"Salat", 
-								"Suppen", 
-								"Back-/Süßspeisen", 
-								"Getränke",	
-								"Frühstück" };
-		
-		CheckBox[] auswahl = new CheckBox[auflistung.length];
 
-		for (int i = 0; i < auflistung.length; i++) {
 
-			CheckBox cb = new CheckBox(auflistung[i]);
+		for (int i = 0; i < suchkategorien.length; i++) {
+
+			CheckBox cb = new CheckBox(suchkategorien[i]);
 				cb.setStyle("-fx-text-fill: -fx-text-base-color");
 
 			CustomMenuItem cmi = new CustomMenuItem(cb);
@@ -134,9 +140,21 @@ public class Gui extends VBox{
 
 	private void suchen(){
 		try{
+			
 			if(!suchergebnisse.getChildren().isEmpty()){
 				suchergebnisse.getChildren().clear();
 			}
+			
+			
+			// hole aktivierte Suchkritieren aus auswahl[] BEGINN
+			String ausgewaehlteSuchkriterien[] = null;
+			for(int i = 0; i < auswahl.length; i++){
+				CheckBox chkbox = auswahl[i];
+				if(chkbox.isSelected()){
+					ausgewaehlteSuchkriterien[i] = chkbox.getText();
+				}
+			}
+			// hole aktivierte Suchkritieren aus auswahl[] ENDE
 			
 			String sucheingabe = suchfeld.getText();
 			Suche neueSuche = new Suche();

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class WebseitencodeReader {
 
 	String[] rezeptTags;
-	String[] zubereitugnsInfos;
+	String[] zubereitungsInfos;
 	String bildUrl;
 	String rezeptTagsRueck;
 	
@@ -24,7 +24,7 @@ public class WebseitencodeReader {
 		 // Quellcode wird in Variable gespeichert
 		 String quellcode = seiteninhaltHolen(rezeptUrl);
 		 rezeptTags = rezeptTagsFiltern(quellcode); 		// RezeptTags
-		 zubereitugnsInfos = zubereitugnsinformatinFiltern(quellcode);
+		 zubereitungsInfos = zubereitugnsinformatinFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
 		 
 //		  Gibt das Array aus
@@ -122,6 +122,6 @@ public class WebseitencodeReader {
 	}
 	
 	public String[] getZubereitungsInfos(){
-		return zubereitugnsInfos;
+		return zubereitungsInfos;
 	}
 }
