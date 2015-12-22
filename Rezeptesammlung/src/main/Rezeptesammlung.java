@@ -51,15 +51,15 @@ public class Rezeptesammlung extends Application{
 
 		meth.listDir(file);
 //		System.out.println(dirList.size());
-		
-		for (int i = 0; i < dirList.size(); i++) {
-			try {
-				Xml_einlesen.Einlesen(dirList.get(i).getAbsolutePath());
-				System.out.println("Datei eingelesen! " + i);
-			} catch (NullPointerException e) {
-
-			}
-		}
+//		
+//		for (int i = 0; i < dirList.size(); i++) {
+//			try {
+//				Xml_einlesen.Einlesen(dirList.get(i).getAbsolutePath());
+//				System.out.println("Datei eingelesen! " + i);
+//			} catch (NullPointerException e) {
+//
+//			}
+//		}
 //		Methoden.deleteDir(file);
 		writer.close();	
 //		String versuchZumTilde = "flachs tomaen";
