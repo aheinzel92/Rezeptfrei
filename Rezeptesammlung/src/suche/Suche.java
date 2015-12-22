@@ -51,7 +51,7 @@ public class Suche {
 //			System.out.println("--------TEST--------");
 //			System.out.println("\nQuelle: " + doc.get("Quelle"));
 //			System.out.println("\nTitel: " + doc.get("Titel"));
-//			System.out.println("\nBild: " + doc.get("Bild"));
+			System.out.println("\nBild: " + doc.get("Bild"));
 //			System.out.println("\nBeschreibung: " + doc.get("Beschreibung"));
 //			System.out.println("\nTag - Monat - Jahr: " + doc.get("Tag") + " - " + doc.get("Monat") + " - " + doc.get("Jahr"));
 //			System.out.println("\nInhalt: " + doc.get("Inhalt"));

@@ -10,6 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+
+import einlesen.Rezepte;
+
 public class RezeptAnlegen extends VBox {
 
 	public RezeptAnlegen() {
@@ -35,7 +39,12 @@ public class RezeptAnlegen extends VBox {
 				System.out.println(titel.getText() + " " + beschreibung.getText() + " " + arbeitszeit.getText() + " "
 						+ kochBackZeit.getText() + " " + schwierigkeit.getValue().toString() + " " + kalorien.getText()
 						+ " " + tags.getText());
-				// neuesRezeptEinfügen(titel.getText(),beschreibung.getText(),arbeitszeit.getText(),kochBackZeit.getText(),schwierigkeit.getValue(),kalorien.getText(),tags.getText());
+				Rezepte neuesRezept = new Rezepte();
+				try {
+					neuesRezept.neuesRezeptEinfügen(titel.getText(),beschreibung.getText(),arbeitszeit.getText(),kochBackZeit.getText(),schwierigkeit.getValue().toString(),kalorien.getText(),tags.getText());
+				} catch (IOException e) {
+					System.out.println("Fehler beim Einlesen!\n" + e.toString());
+				}
 				event.consume();
 			}
 		});
