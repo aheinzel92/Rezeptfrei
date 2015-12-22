@@ -61,4 +61,31 @@ public class Suche {
 		dr.close();
 		return ergebnisObjekt;
 	}
+	
+	public Suchobjekt[] suchenNachKategorien(String suchbegriff) throws IOException,
+			ParseException {
+		String[] felder = {"Tags" };
+		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
+		IndexSearcher searcher = new IndexSearcher(dr);
+		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45,
+				felder, Rezeptesammlung.analyzer);
+		Query query = qp.parse(suchbegriff);
+		TopDocs td = searcher.search(query, 10, Sort.INDEXORDER);
+		ScoreDoc[] sd = td.scoreDocs;
+		Suchobjekt[] ergebnisObjekt = new Suchobjekt[sd.length];
+
+		for (int i = 0; i < sd.length; i++) {
+			Document doc = searcher.doc(sd[i].doc);
+
+			ergebnisObjekt[i] = new Suchobjekt(doc.get("Quelle"),
+					doc.get("Titel"), doc.get("Bild"), doc.get("Beschreibung"),
+					doc.get("Tag"), doc.get("Monat"), doc.get("Jahr"),
+					doc.get("Inhalt"), doc.get("Link"), doc.get("Arbeitszeit"),
+					doc.get("KochBackzeit"), doc.get("Schwierigkeit"),
+					doc.get("KalorienPP"), doc.get("Tags"));
+			System.out.println(ergebnisObjekt[i].toString());
+		}
+		dr.close();
+		return ergebnisObjekt;
+	}
 }
