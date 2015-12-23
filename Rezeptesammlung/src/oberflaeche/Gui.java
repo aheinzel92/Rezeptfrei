@@ -147,7 +147,7 @@ public class Gui extends VBox{
 			
 			// hole aktivierte Suchkritieren aus auswahl[] BEGINN
 //			String ausgewaehlteSuchkriterien[] = new String[auswahl.length];
-			String ausgewaehlteSuchkriterien;
+			String ausgewaehlteSuchkriterien = "";
 			for(int i = 0; i < auswahl.length; i++){
 				CheckBox chkbox = auswahl[i];
 				if(chkbox.isSelected()){

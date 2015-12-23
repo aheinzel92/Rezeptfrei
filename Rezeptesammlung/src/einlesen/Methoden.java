@@ -95,7 +95,7 @@ public class Methoden {
 		public Suchobjekt[] kategorie(String suchbegriff, String ausgewählteKategorien) throws IOException, ParseException{
 			Suche such = new Suche();
 			Suchobjekt[] ergebnis;
-			if(ausgewählteKategorien==null){
+			if(ausgewählteKategorien.length() == 0){
 				return such.suchen(suchbegriff);
 			}
 			else{
