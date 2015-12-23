@@ -2,6 +2,7 @@
 
 package oberflaeche;
 
+import einlesen.Methoden;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -160,8 +161,10 @@ CheckBox[] auswahl = new CheckBox[suchkategorien.length];
 			
 			String sucheingabe = suchfeld.getText();
 			Suche neueSuche = new Suche();
+			Methoden suchenKategorie = new Methoden();
 
 			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()));
+//			Suchobjekt[] gefundeneRezepte = suchenKategorie.kategorie(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()), ausgewaehlteSuchkriterien);
 			suchtreffer = gefundeneRezepte.length;
 			ergebnisanzahl.setText(String.format(
 				"Ihre Suche ergab %1$d Treffer", suchtreffer));

@@ -99,7 +99,7 @@ public class Methoden {
 				return such.suchen(suchbegriff);
 			}
 			else{
-				return such.suchenNachKategorien(suchbegriff);	
+				return such.suchenNachKategorien(suchbegriff, ausgewählteKategorien);	
 			}
 		}
 		
