@@ -2,8 +2,14 @@
 package einlesen;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import org.apache.lucene.queryparser.classic.ParseException;
+
+import objekte.Suchobjekt;
+import suche.Suche;
 
 //egal
 
@@ -84,7 +90,19 @@ public class Methoden {
 				return suchbegriff2;
 			}	
 		}
-
+		
+		// Methode zur Kategorisierung
+		public Suchobjekt[] kategorie(String suchbegriff, String[] ausgewählteKategorien) throws IOException, ParseException{
+			Suche such = new Suche();
+			Suchobjekt[] ergebnis;
+			if(ausgewählteKategorien == null){
+				return such.suchen(suchbegriff);
+			}
+			else{
+				return such.suchenNachKategorien(suchbegriff);	
+			}
+		}
+		
 		// Methode um aus dem Stringarray mit den ganzen Tags einen einzelnen String zu machen
 		public static String arrayToString(String[] tagsArray){
 			String tagsString = "";

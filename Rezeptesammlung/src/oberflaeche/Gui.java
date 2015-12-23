@@ -1,3 +1,5 @@
+// Bitte String[] als Rückgabe für Kategorien. Danke! :)
+
 package oberflaeche;
 
 import javafx.application.Platform;
