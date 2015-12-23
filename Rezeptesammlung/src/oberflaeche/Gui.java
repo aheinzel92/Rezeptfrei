@@ -150,11 +150,12 @@ CheckBox[] auswahl = new CheckBox[suchkategorien.length];
 			
 			
 			// hole aktivierte Suchkritieren aus auswahl[] BEGINN
-			String ausgewaehlteSuchkriterien[] = null;
+			String ausgewaehlteSuchkriterien[] = new String[auswahl.length];
 			for(int i = 0; i < auswahl.length; i++){
 				CheckBox chkbox = auswahl[i];
 				if(chkbox.isSelected()){
 					ausgewaehlteSuchkriterien[i] = chkbox.getText();
+					System.out.println(ausgewaehlteSuchkriterien[i]);
 				}
 			}
 			// hole aktivierte Suchkritieren aus auswahl[] ENDE
@@ -163,8 +164,8 @@ CheckBox[] auswahl = new CheckBox[suchkategorien.length];
 			Suche neueSuche = new Suche();
 			Methoden suchenKategorie = new Methoden();
 
-			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()));
-//			Suchobjekt[] gefundeneRezepte = suchenKategorie.kategorie(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()), ausgewaehlteSuchkriterien);
+//			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()));
+			Suchobjekt[] gefundeneRezepte = suchenKategorie.kategorie(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()), ausgewaehlteSuchkriterien);
 			suchtreffer = gefundeneRezepte.length;
 			ergebnisanzahl.setText(String.format(
 				"Ihre Suche ergab %1$d Treffer", suchtreffer));
