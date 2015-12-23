@@ -92,10 +92,10 @@ public class Methoden {
 		}
 		
 		// Methode zur Kategorisierung
-		public Suchobjekt[] kategorie(String suchbegriff, String[] ausgewählteKategorien) throws IOException, ParseException{
+		public Suchobjekt[] kategorie(String suchbegriff, String ausgewählteKategorien) throws IOException, ParseException{
 			Suche such = new Suche();
 			Suchobjekt[] ergebnis;
-			if(ausgewählteKategorien == null){
+			if(ausgewählteKategorien==null){
 				return such.suchen(suchbegriff);
 			}
 			else{

@@ -62,7 +62,7 @@ public class Suche {
 		return ergebnisObjekt;
 	}
 	
-	public Suchobjekt[] suchenNachKategorien(String suchbegriff, String[] ausgewählteKategorien) throws IOException,
+	public Suchobjekt[] suchenNachKategorien(String suchbegriff, String ausgewählteKategorien) throws IOException,
 			ParseException {
 		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild", "Arbeitszeit", "KochBackzeit", "Schwierigkeit", "KalorienPP", "Tags"};
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
@@ -76,8 +76,11 @@ public class Suche {
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
 			
-			for(int a = 0; a<ausgewählteKategorien.length; a++){
-				if(doc.get("Tags").equals(ausgewählteKategorien[a]))
+			for(int a = 0; a<ausgewählteKategorien.length(); a++){
+				System.out.println(doc.get("Tags"));
+//				System.out.println(ausgewählteKategorien[a]);
+				if(doc.get("Tags").toLowerCase().contains(ausgewählteKategorien.toLowerCase()))
+					System.out.println("ok");
 					ergebnisObjekt[i] = new Suchobjekt(doc.get("Quelle"),
 													doc.get("Titel"), 
 													doc.get("Bild"), 
