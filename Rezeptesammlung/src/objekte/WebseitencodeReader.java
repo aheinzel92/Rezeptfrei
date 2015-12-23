@@ -22,7 +22,7 @@ public class WebseitencodeReader {
 	public WebseitencodeReader(String rezeptUrl) { 
 		 
 		 // Quellcode wird in Variable gespeichert
-		 String quellcode = seiteninhaltHolen(rezeptUrl);
+		 String quellcode = quelltextHolen(rezeptUrl);
 		 rezeptTags = rezeptTagsFiltern(quellcode); 		// RezeptTags
 		 zubereitungsInfos = zubereitugnsinformatinFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
@@ -35,7 +35,12 @@ public class WebseitencodeReader {
 		 
 	 }
 	 
-	public String seiteninhaltHolen(String url) {
+	
+	/* 
+	 * Methode die, die Rezept URL aus den RSS-Feeds nutzt um an den 
+	 * Quellcode der Rezeptseite zu gelangen und als einfachen String zurück gibt 
+	 */
+	public String quelltextHolen(String url) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Scanner scanner = new Scanner(new URL(url).openStream());
@@ -52,6 +57,7 @@ public class WebseitencodeReader {
 		return sb.toString();
 	}
 	
+	// Methode die, die HTML-Code Umlaute und das scharfe S durch die entsprechenden Zeichen ersetzt
 	public String umlauteErsetzen(String quellcode){
 		 // HTML Umlaute werden ersetzt
 		 quellcode = quellcode.replaceAll("&uuml;","ü");
@@ -65,6 +71,7 @@ public class WebseitencodeReader {
 		 return quellcode;
 	}
 	
+	// Extrahiert die zum Rezept gehörigen Tags, die im Quellcode stehen
 	public String[] rezeptTagsFiltern(String quellcode){
 		 // Der Code wird nach bestimmten Wörtern gefiltert, die Differenz wird herausgeschnitten und in eine Variable gespeichert
 		 int schnitt1 = (quellcode.indexOf("Tags:") + 6);
@@ -78,8 +85,8 @@ public class WebseitencodeReader {
 		 return einzelKat;
 	}
 	
+	// Extrahiert die Zubereitungsinformationen Arbeitszeit, Koch/Backzeit, Schwierigkeitsgrad und Kalorienangabe falls verfügbar 
 	public String[] zubereitugnsinformatinFiltern(String quellcode){
-		
 		String kochUndBackzeit;
 		 int schnitt1 = (quellcode.indexOf("Zubereitung</h2>"));
 		 int schnitt2 = (quellcode.indexOf("instructions"));
@@ -107,8 +114,8 @@ public class WebseitencodeReader {
 		return zubereitungsinfo;
 	}
 	
+	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
-		
 		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 116), (quellcode.indexOf("slideshow-imagelink") - 32));
 //		System.out.println(bild);
 		return bild;
@@ -116,7 +123,7 @@ public class WebseitencodeReader {
 	
 	
 	
-	
+	// GETTER
 	public String getBildUrl(){
 		return bildUrl;
 	}
