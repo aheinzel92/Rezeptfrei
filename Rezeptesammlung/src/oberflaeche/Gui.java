@@ -1,5 +1,3 @@
-// Bitte String[] als Rückgabe für Kategorien. Danke! :)
-
 package oberflaeche;
 
 import einlesen.Methoden;
@@ -33,9 +31,9 @@ public class Gui extends VBox{
 
 	private int suchtreffer;
 	SuchergebnisElement tempRezept;
+	einlesen.Methoden meth;
 	TextField suchfeld = new TextField();
 	VBox suchergebnisse = new VBox();
-	einlesen.Methoden meth;
 	Label ergebnisanzahl = new Label();
 	
 	RadioButton oderSuche;
@@ -51,12 +49,10 @@ public class Gui extends VBox{
 			"Getränke",	
 			"Frühstück" };
 
-CheckBox[] auswahl = new CheckBox[suchkategorien.length];
+	CheckBox[] auswahl = new CheckBox[suchkategorien.length];
 	
 	
-	
-	
-	
+	// Constructor
 	public Gui(einlesen.Methoden meth) {
 
 		this.meth = meth;
@@ -150,12 +146,14 @@ CheckBox[] auswahl = new CheckBox[suchkategorien.length];
 			
 			
 			// hole aktivierte Suchkritieren aus auswahl[] BEGINN
-			String ausgewaehlteSuchkriterien[] = new String[auswahl.length];
+//			String ausgewaehlteSuchkriterien[] = new String[auswahl.length];
+			String ausgewaehlteSuchkriterien;
 			for(int i = 0; i < auswahl.length; i++){
 				CheckBox chkbox = auswahl[i];
 				if(chkbox.isSelected()){
-					ausgewaehlteSuchkriterien[i] = chkbox.getText();
-					System.out.println(ausgewaehlteSuchkriterien[i]);
+					ausgewaehlteSuchkriterien += (chkbox.getText() + ", ");
+//					ausgewaehlteSuchkriterien[i] = chkbox.getText();
+					System.out.println(ausgewaehlteSuchkriterien);
 				}
 			}
 			// hole aktivierte Suchkritieren aus auswahl[] ENDE
