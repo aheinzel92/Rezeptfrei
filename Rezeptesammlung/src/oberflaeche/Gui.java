@@ -177,7 +177,6 @@ CheckBox[] auswahl = new CheckBox[suchkategorien.length];
 														gefundeneRezepte[i].getQuelle());
 
 				suchergebnisse.getChildren().add(tempRezept);
-
 			}
 			
 		}catch(Exception e){
