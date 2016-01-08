@@ -7,7 +7,7 @@ import java.util.Scanner;
  
 // Webseitencodeleser wird generiert
 
-public class WebseitencodeReader {
+public class WebseitencodeReaderLeckerDe {
 
 	String[] rezeptTags;
 	String[] zubereitungsInfos;
@@ -19,7 +19,7 @@ public class WebseitencodeReader {
 		return rezeptTagsRueck;
 	}
 
-	public WebseitencodeReader(String rezeptUrl) { 
+	public WebseitencodeReaderLeckerDe(String rezeptUrl) { 
 		 
 		 // Quellcode wird in Variable gespeichert
 		 String quellcode = quelltextHolen(rezeptUrl);
@@ -74,45 +74,42 @@ public class WebseitencodeReader {
 	// Extrahiert die zum Rezept gehörigen Tags, die im Quellcode stehen
 	public String[] rezeptTagsFiltern(String quellcode){
 		 // Der Code wird nach bestimmten Wörtern gefiltert, die Differenz wird herausgeschnitten und in eine Variable gespeichert
-		 int schnitt1 = (quellcode.indexOf("Tags:") + 6);
-		 int schnitt2 = (quellcode.indexOf("robots") - 15);
-		 rezeptTagsRueck = (quellcode.substring((schnitt1), (schnitt2)));
-		 	rezeptTagsRueck = umlauteErsetzen(rezeptTagsRueck);
+		 rezeptTagsRueck = (quellcode.substring((quellcode.indexOf("recipeType")), (quellcode.indexOf("duration"))));
+		 rezeptTagsRueck = umlauteErsetzen(rezeptTagsRueck);
 		 
 		 // Legt die einzelnen Kategorien in ein Array
-		 String[] einzelKat = rezeptTagsRueck.split(", ");
+		 String[] einzelKat = {rezeptTagsRueck};
+		 System.out.println(einzelKat[0]);
 
 		 return einzelKat;
 	}
 	
 	// Extrahiert die Zubereitungsinformationen Arbeitszeit, Koch/Backzeit, Schwierigkeitsgrad und Kalorienangabe falls verfügbar 
 	public String[] zubereitugnsinformatinFiltern(String quellcode){
-		String kochUndBackzeit;
+
 		String kalorienAngabe;
 		
-		 int schnitt1 = (quellcode.indexOf("Zubereitung</h2>"));
-		 int schnitt2 = (quellcode.indexOf("instructions"));
+		//Grobes zurechtschneiden des Bereichs mit allen Informationen, damit nicht mehrmals der gesamte Quellcode durchsucht werden muss
+		 int schnitt1 = (quellcode.indexOf("<!-- Typ -->"));
+		 int schnitt2 = (quellcode.indexOf("<!-- Video -->"));
+		 
 		 String quellcodeAbschnitt = (quellcode.substring((schnitt1), (schnitt2)));
 //		 System.out.println(quellcodeAbschnitt);
 		 
+		 String schwierigkeitsgrad = "Keine Angabe auf Lecker.de";
+		 String kochUndBackzeit = "Keine Angabe auf Lecker.de";
+		 String arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("ilCooktime") + 35), (quellcodeAbschnitt.indexOf("&nbsp;min")));
+
 		 try{
-			 kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("cookTime") - 28));
-		 }catch(Exception e){
-			 kochUndBackzeit = "keine Angabe";
-		 }
-		 
-		 String arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("prepTime") - 26));
-		 String schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
-		 try{
-			 kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 107), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 100));
+			 kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("recCal rightdotline") + 41), (quellcodeAbschnitt.indexOf("&nbsp;kcal")));
 		 }catch(Exception e)
 		 {
 			 kalorienAngabe = "keine Angabe";
 		 }
-//			 System.out.println(arbeitszeit);
-//		 	 System.out.println(kochUndBackzeit);
-//			 System.out.println(schwierigkeitsgrad);
-//			 System.out.println(kalorienAngabe);
+			 System.out.println("Lecker.de: " + arbeitszeit);
+		 	 System.out.println("Lecker.de: " + kochUndBackzeit);
+			 System.out.println("Lecker.de: " + schwierigkeitsgrad);
+			 System.out.println("Lecker.de: " + kalorienAngabe);
 		 
 		String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, schwierigkeitsgrad, kalorienAngabe};
 		
@@ -122,8 +119,8 @@ public class WebseitencodeReader {
 	
 	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
-		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 116), (quellcode.indexOf("slideshow-imagelink") - 32));
-//		System.out.println(bild);
+		String bild = quellcode.substring((quellcode.indexOf("og:image") + 19), (quellcode.indexOf("<!-- END contentview -->") - 5));
+		System.out.println("Lecker.de: " + bild);
 		return bild;
 	}
 	

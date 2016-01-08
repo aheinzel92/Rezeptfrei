@@ -32,7 +32,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import main.Rezeptesammlung;
-import objekte.WebseitencodeReader;
+import objekte.WebseitencodeReaderChefkochDe;
 
 public class Xml_einlesen {
 
@@ -140,7 +140,7 @@ public class Xml_einlesen {
 				break;
 			}
 
-			WebseitencodeReader codeReader = new WebseitencodeReader(link);
+			WebseitencodeReaderChefkochDe codeReader = new WebseitencodeReaderChefkochDe(link);
 			tags = codeReader.getRezeptTagsRueck();
 			String[] zubInfo = codeReader.getZubereitungsInfos();
 

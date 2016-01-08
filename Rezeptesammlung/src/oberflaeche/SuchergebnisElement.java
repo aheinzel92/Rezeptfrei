@@ -16,7 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
-import objekte.WebseitencodeReader;
+import objekte.WebseitencodeReaderChefkochDe;
+import objekte.WebseitencodeReaderLeckerDe;
 
 public class SuchergebnisElement extends HBox {
 
@@ -39,7 +40,8 @@ public class SuchergebnisElement extends HBox {
 	
 	private Button url_button;
 	
-	WebseitencodeReader quelltext;
+	WebseitencodeReaderChefkochDe quelltextChefkochDe;
+	WebseitencodeReaderLeckerDe quelltextLeckerDe;
 	
 	// Konstruktor der Klasse
 	public SuchergebnisElement(String bildurl, 
@@ -56,7 +58,11 @@ public class SuchergebnisElement extends HBox {
 		this.titel = titel;
 		this.link = link;
 		try {
-			quelltext = new WebseitencodeReader(link);
+			if(quelle.equals("chefkoch.de")){
+				quelltextChefkochDe = new WebseitencodeReaderChefkochDe(link);
+			}else {
+				quelltextLeckerDe = new WebseitencodeReaderLeckerDe(link);
+			}
 		} catch (Exception e) {
 			System.out.println("Rezept von Lecker.de kann noch nicht verarbeitet werden.");
 		}
@@ -80,7 +86,13 @@ public class SuchergebnisElement extends HBox {
 		
 		// Das Vorschaubild wird gesetzt, falls keines vorhanden ist wird es nur eine Standardgrafik ersetzt
 		try {
-			Image thumbnail = new Image(bildurl);
+			Image thumbnail;
+			if(quelle.equals("chefkoch.de")){
+				thumbnail = new Image(bildurl);
+			}else {
+				thumbnail = new Image(quelltextLeckerDe.getBildUrl());
+			}
+//			Image thumbnail = new Image(bildurl);
 			this.vorschaubild = new ImageView(thumbnail);
 			vorschaubild.setFitWidth(200);
 			vorschaubild.setPreserveRatio(true);
@@ -95,7 +107,7 @@ public class SuchergebnisElement extends HBox {
 		if (quelle.equals("chefkoch.de")) {
 			this.getChildren().addAll(vorschaubild, chefkochWebInfosHolen(), url_button);
 		} else if (quelle.equals("lecker.de")) {
-//			generiereLecker(inhalt, beschreibung);
+			this.getChildren().addAll(vorschaubild, leckerWebInfosHolen(), url_button);
 		}
 		
 //		this.getChildren().addAll(vorschaubild, chefkochWebInfosHolen(link));
@@ -117,7 +129,7 @@ public class SuchergebnisElement extends HBox {
 		try{
 
 //			System.out.println("tut");
-			String[] array = quelltext.getZubereitungsInfos();
+			String[] array = quelltextChefkochDe.getZubereitungsInfos();
 		
 			arbeitszeit = array[0];
 			kochbackzeit = array[1];
@@ -139,6 +151,37 @@ public class SuchergebnisElement extends HBox {
 		return text;
 	}
 	
+	
+	private Label leckerWebInfosHolen(){
+		String arbeitszeit = null;
+		String kochbackzeit = null;
+		String schwierigkeit = null;
+		String kalorienpp = null;
+		
+		try{
+
+//			System.out.println("tut");
+			String[] array = quelltextLeckerDe.getZubereitungsInfos();
+		
+			arbeitszeit = array[0];
+			kochbackzeit = array[1];
+			schwierigkeit = array[2];
+			kalorienpp = array[3];
+
+		}catch(Exception e){
+			e.printStackTrace();
+//			System.out.println("nix zum zeilen umbrechen gefunden");
+		}
+	
+		this.text = new Label( titel + "\n" + 
+								arbeitszeitLabel + arbeitszeit + " Min. / " + 
+								kochbackzeitLabel + kochbackzeit + "\n" + 
+								schwierigkeitLabel + schwierigkeit + "\n" + 
+								kalorienppLabel + kalorienpp);
+		this.text.setFont(new Font("Sylfaen",14));
+		
+		return text;
+	}
 	
 //	private void generiereChefkoch(String inhalt, String beschreibung){
 //		
