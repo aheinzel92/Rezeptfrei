@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.Scanner;
  
 // Webseitencodeleser wird generiert
-
 public class WebseitencodeReaderLeckerDe {
 
 	String[] rezeptTags;
