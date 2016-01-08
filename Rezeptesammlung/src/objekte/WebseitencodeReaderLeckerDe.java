@@ -27,12 +27,6 @@ public class WebseitencodeReaderLeckerDe {
 		 zubereitungsInfos = zubereitugnsinformatinFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
 		 
-//		  Gibt das Array aus
-//		 for (int i = 0; i < rezeptTags.length; i++) {
-//		   System.out.println(rezeptTags[i]);
-//		 }
-		 
-		 
 	 }
 	 
 	
@@ -74,13 +68,11 @@ public class WebseitencodeReaderLeckerDe {
 	// Extrahiert die zum Rezept gehörigen Tags, die im Quellcode stehen
 	public String[] rezeptTagsFiltern(String quellcode){
 		 // Der Code wird nach bestimmten Wörtern gefiltert, die Differenz wird herausgeschnitten und in eine Variable gespeichert
-		 rezeptTagsRueck = (quellcode.substring((quellcode.indexOf("recipeType")), (quellcode.indexOf("duration"))));
+		 rezeptTagsRueck = (quellcode.substring((quellcode.indexOf("recipeType") + 19), (quellcode.indexOf("duration") - 53)));
 		 rezeptTagsRueck = umlauteErsetzen(rezeptTagsRueck);
 		 
 		 // Legt die einzelnen Kategorien in ein Array
 		 String[] einzelKat = {rezeptTagsRueck};
-		 System.out.println(einzelKat[0]);
-
 		 return einzelKat;
 	}
 	
@@ -94,8 +86,7 @@ public class WebseitencodeReaderLeckerDe {
 		 int schnitt2 = (quellcode.indexOf("<!-- Video -->"));
 		 
 		 String quellcodeAbschnitt = (quellcode.substring((schnitt1), (schnitt2)));
-//		 System.out.println(quellcodeAbschnitt);
-		 
+
 		 String schwierigkeitsgrad = "Keine Angabe auf Lecker.de";
 		 String kochUndBackzeit = "Keine Angabe auf Lecker.de";
 		 String arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("ilCooktime") + 35), (quellcodeAbschnitt.indexOf("&nbsp;min")));
@@ -106,11 +97,7 @@ public class WebseitencodeReaderLeckerDe {
 		 {
 			 kalorienAngabe = "keine Angabe";
 		 }
-			 System.out.println("Lecker.de: " + arbeitszeit);
-		 	 System.out.println("Lecker.de: " + kochUndBackzeit);
-			 System.out.println("Lecker.de: " + schwierigkeitsgrad);
-			 System.out.println("Lecker.de: " + kalorienAngabe);
-		 
+	 
 		String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, schwierigkeitsgrad, kalorienAngabe};
 		
 		
@@ -120,7 +107,7 @@ public class WebseitencodeReaderLeckerDe {
 	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
 		String bild = quellcode.substring((quellcode.indexOf("og:image") + 19), (quellcode.indexOf("<!-- END contentview -->") - 5));
-		System.out.println("Lecker.de: " + bild);
+
 		return bild;
 	}
 	

@@ -27,12 +27,6 @@ public class WebseitencodeReaderChefkochDe {
 		 zubereitungsInfos = zubereitugnsinformatinFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
 		 
-//		  Gibt das Array aus
-//		 for (int i = 0; i < rezeptTags.length; i++) {
-//		   System.out.println(rezeptTags[i]);
-//		 }
-		 
-		 
 	 }
 	 
 	
@@ -91,7 +85,6 @@ public class WebseitencodeReaderChefkochDe {
 		
 		//Grobes zurechtschneiden des Bereichs mit allen Informationen, damit nicht mehrmals der gesamte Quellcode durchsucht werden muss
 		 String quellcodeAbschnitt = quellcode.substring(quellcode.indexOf("Zubereitung</h2>"), (quellcode.indexOf("instructions")));
-//		 System.out.println(quellcodeAbschnitt);
 		 
 		 try{
 			 kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("cookTime") - 28));
@@ -107,12 +100,8 @@ public class WebseitencodeReaderChefkochDe {
 		 {
 			 kalorienAngabe = "keine Angabe";
 		 }
-//			 System.out.println(arbeitszeit);
-//		 	 System.out.println(kochUndBackzeit);
-//			 System.out.println(schwierigkeitsgrad);
-//			 System.out.println(kalorienAngabe);
-		 
-		String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, schwierigkeitsgrad, kalorienAngabe};
+
+		 String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, schwierigkeitsgrad, kalorienAngabe};
 		
 		
 		return zubereitungsinfo;
@@ -121,7 +110,7 @@ public class WebseitencodeReaderChefkochDe {
 	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
 		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 116), (quellcode.indexOf("slideshow-imagelink") - 32));
-//		System.out.println(bild);
+
 		return bild;
 	}
 	

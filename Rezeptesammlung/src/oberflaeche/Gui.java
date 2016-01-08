@@ -25,7 +25,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objekte.Suchobjekt;
-import suche.Suche;
 
 public class Gui extends VBox{
 
@@ -54,8 +53,9 @@ public class Gui extends VBox{
 	
 	// Constructor
 	public Gui(einlesen.Methoden meth) {
-
+		
 		this.meth = meth;
+		
 		Button suchtaste = new Button("Suchen");
 			suchtaste.setOnAction(e -> suchen());
 
@@ -134,7 +134,7 @@ public class Gui extends VBox{
 			scrollpane.setContent(suchergebnisse);
 
 		this.getChildren().addAll(obereWerkzeugleiste, scrollpane, untereWerkzeugleiste);
-		this.setVgrow(scrollpane, Priority.ALWAYS);
+		VBox.setVgrow(scrollpane, Priority.ALWAYS);
 	}
 
 	private void suchen(){
@@ -146,28 +146,23 @@ public class Gui extends VBox{
 			
 			
 			// hole aktivierte Suchkritieren aus auswahl[] BEGINN
-//			String ausgewaehlteSuchkriterien[] = new String[auswahl.length];
 			String ausgewaehlteSuchkriterien = "";
 			for(int i = 0; i < auswahl.length; i++){
 				CheckBox chkbox = auswahl[i];
 				if(chkbox.isSelected()){
 					ausgewaehlteSuchkriterien += (chkbox.getText() + ", ");
-//					ausgewaehlteSuchkriterien[i] = chkbox.getText();
-					System.out.println(ausgewaehlteSuchkriterien);
 				}
 			}
-			// hole aktivierte Suchkritieren aus auswahl[] ENDE
 			
+			// hole aktivierte Suchkritieren aus auswahl[] ENDE
 			String sucheingabe = suchfeld.getText();
-			Suche neueSuche = new Suche();
 			Methoden suchenKategorie = new Methoden();
 
-//			Suchobjekt[] gefundeneRezepte = neueSuche.suchen(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()));
 			Suchobjekt[] gefundeneRezepte = suchenKategorie.kategorie(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()), ausgewaehlteSuchkriterien);
 			suchtreffer = gefundeneRezepte.length;
 			ergebnisanzahl.setText(String.format(
 				"Ihre Suche ergab %1$d Treffer", suchtreffer));
-//			System.out.println("SUCHTREFFER: " + suchtreffer);
+
 
 			for (int i = 0; i < suchtreffer; i++) {
 				tempRezept = new SuchergebnisElement(gefundeneRezepte[i].getBild(),
@@ -182,7 +177,7 @@ public class Gui extends VBox{
 
 				suchergebnisse.getChildren().add(tempRezept);
 			}
-			
+			suchergebnisse.setPrefWidth(778);
 		}catch(Exception e){
 			e.printStackTrace();
 		};

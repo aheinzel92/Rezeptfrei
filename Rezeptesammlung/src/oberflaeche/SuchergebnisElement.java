@@ -6,15 +6,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
-
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import objekte.WebseitencodeReaderChefkochDe;
 import objekte.WebseitencodeReaderLeckerDe;
@@ -24,12 +23,13 @@ public class SuchergebnisElement extends HBox {
 	private ImageView vorschaubild;
 	
 	private String titel;
+	@SuppressWarnings("unused")
 	private String beschreibung;
-	private String tag;
-	private String monat;
-	private String jahr;
+	@SuppressWarnings("unused")
 	private String inhalt;
+	@SuppressWarnings("unused")
 	private String link;
+	@SuppressWarnings("unused")
 	private String quelle;
 	
 	private String arbeitszeitLabel = "Arbeitszeit: ";
@@ -38,7 +38,30 @@ public class SuchergebnisElement extends HBox {
 	private String kalorienppLabel = "Kalorien p.P.: ";
 	private Label text;
 	
-	private Button url_button;
+	private boolean isChefkoch;
+	
+	private Button url_button = new Button("Zum Rezept");;
+	
+	//design der buttons
+	String button_style_chefkoch = "-fx-background-color: linear-gradient(#658d1b 0%, #9ede29 100%)," // aeusserer Rand
+														+ "linear-gradient(#9ede29 0%, #658d1b 100%)," // Hauptfläche 
+														+ "linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));"
+									+ "-fx-background-radius: 5;"
+									+ "-fx-background-insets: 0,1,2,3,0;"
+									+ "-fx-text-fill: #ffffff;"
+									+ "-fx-font-weight: bold;"
+									+ "-fx-font-size: 12px;"
+									+ "-fx-padding: 10 20 10 20;";
+	
+	String button_style_lecker = "-fx-background-color: linear-gradient(#5cadbd 0%, #71cfe2 100%)," // aeusserer Rand
+														+ "linear-gradient(#71cfe2 0%, #5cadbd 100%)," // Hauptfläche 
+														+ "linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));"
+									+ "-fx-background-radius: 5;"
+									+ "-fx-background-insets: 0,1,2,3,0;"
+									+ "-fx-text-fill: #ffffff;"
+									+ "-fx-font-weight: bold;"
+									+ "-fx-font-size: 12px;"
+									+ "-fx-padding: 10 20 10 20;";
 	
 	WebseitencodeReaderChefkochDe quelltextChefkochDe;
 	WebseitencodeReaderLeckerDe quelltextLeckerDe;
@@ -57,22 +80,58 @@ public class SuchergebnisElement extends HBox {
 	{
 		this.titel = titel;
 		this.link = link;
+		this.isChefkoch = quelle.equals("chefkoch.de");
+		
 		try {
-			if(quelle.equals("chefkoch.de")){
+			if(isChefkoch){
 				quelltextChefkochDe = new WebseitencodeReaderChefkochDe(link);
 			}else {
 				quelltextLeckerDe = new WebseitencodeReaderLeckerDe(link);
 			}
 		} catch (Exception e) {
-			System.out.println("Rezept von Lecker.de kann noch nicht verarbeitet werden.");
+			System.out.println("Fehler beim Verarbeiten der Daten/Webseite");
 		}
 	
 		
 		// Der "Zur Seite"-Button wird generiert um das volle Rezept auf der entsprechnenden Plattform anzuzeigen.
-		url_button = new Button("Zur Seite");
-		url_button.setOnAction(new EventHandler<ActionEvent>() {
+
+		url_button.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(MouseEvent e) {
+				
+				if(isChefkoch){				
+				url_button.setStyle(" -fx-background-color: linear-gradient(#658d1b 0%, #88bd26 50%, #9ede29 100%)," // aeusserer Rand
+														+ "linear-gradient(#658d1b 0%, #88bd26 50%, #9ede29 100%)," // Hauptfläche 
+														+ "linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));"
+									+ "-fx-background-radius: 5;"
+									+ "-fx-background-insets: 0,1,2,3,0;"
+									+ "-fx-text-fill: #ffffff;"
+									+ "-fx-font-weight: bold;"
+									+ "-fx-font-size: 12px;"
+									+ "-fx-padding: 10 20 10 20;");
+				}else{
+				url_button.setStyle("-fx-background-color: linear-gradient(#71cfe2 0%, #5cadbd 100%)," // aeusserer Rand
+														+ "linear-gradient(#5cadbd 0%, #71cfe2 100%)," // Hauptfläche 
+														+ "linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));"
+									+ "-fx-background-radius: 5;"
+									+ "-fx-background-insets: 0,1,2,3,0;"
+									+ "-fx-text-fill: #ffffff;"
+									+ "-fx-font-weight: bold;"
+									+ "-fx-font-size: 12px;"
+									+ "-fx-padding: 10 20 10 20;");
+				}
+				
+
+			}
+		});
+		url_button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				if(isChefkoch){
+					url_button.setStyle(button_style_chefkoch);
+				} else {
+					url_button.setStyle(button_style_lecker);
+				}
 				try {
 					Desktop.getDesktop().browse(new URI(link));
 				} catch (IOException e1) {
@@ -82,12 +141,11 @@ public class SuchergebnisElement extends HBox {
 				}
 			}
 		});
-
 		
 		// Das Vorschaubild wird gesetzt, falls keines vorhanden ist wird es nur eine Standardgrafik ersetzt
 		try {
 			Image thumbnail;
-			if(quelle.equals("chefkoch.de")){
+			if(isChefkoch){
 				thumbnail = new Image(bildurl);
 			}else {
 				thumbnail = new Image(quelltextLeckerDe.getBildUrl());
@@ -104,10 +162,32 @@ public class SuchergebnisElement extends HBox {
 				vorschaubild.setImage(bild);
 		}
 
-		if (quelle.equals("chefkoch.de")) {
-			this.getChildren().addAll(vorschaubild, chefkochWebInfosHolen(), url_button);
+		
+		// Hier wirden alle Daten gepackt und das schlussendliche Suchergebniselement erstellt
+		if (isChefkoch) {
+			url_button.setStyle(button_style_chefkoch);
+			url_button.setText(url_button.getText() + " auf Chefkoch.de");
+			
+			VBox datenUndButton = new VBox();
+				datenUndButton.getChildren().addAll(chefkochWebInfosHolen(), url_button);
+				datenUndButton.setSpacing(10);
+			this.getChildren().addAll(vorschaubild, datenUndButton);
+			this.setSpacing(10);
+			this.setStyle("-fx-border-style: solid;"
+	                + "-fx-border-width: 2;"
+	                + "-fx-border-color: #658d1b");
 		} else if (quelle.equals("lecker.de")) {
-			this.getChildren().addAll(vorschaubild, leckerWebInfosHolen(), url_button);
+			url_button.setStyle(button_style_lecker);
+			url_button.setText(url_button.getText() + " auf Lecker.de");
+			
+			VBox datenUndButton = new VBox();
+				datenUndButton.getChildren().addAll(leckerWebInfosHolen(), url_button);
+				datenUndButton.setSpacing(10);
+			this.getChildren().addAll(vorschaubild, datenUndButton);
+			this.setSpacing(10);
+			this.setStyle("-fx-border-style: solid;"
+	                + "-fx-border-width: 2;"
+	                + "-fx-border-color: #5cadbd");
 		}
 		
 //		this.getChildren().addAll(vorschaubild, chefkochWebInfosHolen(link));
@@ -127,8 +207,6 @@ public class SuchergebnisElement extends HBox {
 		String kalorienpp = null;
 		
 		try{
-
-//			System.out.println("tut");
 			String[] array = quelltextChefkochDe.getZubereitungsInfos();
 		
 			arbeitszeit = array[0];
@@ -138,7 +216,6 @@ public class SuchergebnisElement extends HBox {
 
 		}catch(Exception e){
 			e.printStackTrace();
-//			System.out.println("nix zum zeilen umbrechen gefunden");
 		}
 	
 		this.text = new Label( titel + "\n" + 
@@ -159,8 +236,6 @@ public class SuchergebnisElement extends HBox {
 		String kalorienpp = null;
 		
 		try{
-
-//			System.out.println("tut");
 			String[] array = quelltextLeckerDe.getZubereitungsInfos();
 		
 			arbeitszeit = array[0];
@@ -170,7 +245,6 @@ public class SuchergebnisElement extends HBox {
 
 		}catch(Exception e){
 			e.printStackTrace();
-//			System.out.println("nix zum zeilen umbrechen gefunden");
 		}
 	
 		this.text = new Label( titel + "\n" + 
@@ -182,33 +256,5 @@ public class SuchergebnisElement extends HBox {
 		
 		return text;
 	}
-	
-//	private void generiereChefkoch(String inhalt, String beschreibung){
-//		
-//		this.inhalt = inhalt;
-//		this.beschreibung = beschreibung;
-//		System.out.println("chefkoch.de");
-//	}
-	
-	private void generiereLecker(String inhalt, String beschreibung){
-
-		this.inhalt = inhalt;
-		this.beschreibung = beschreibung;
-		System.out.println("lecker.de");
-	}
-	
-	/* Eine Methode die mittels PixelReader() und WritableImage() ein übergebenes Bild beschneidet und
-	 * in den Ausschnitt mittig auf das Bild anwendet.
-	 */
-//	private Image cropImage(Image orgPic){
-//		
-//		int widthhalf = (int)(orgPic.getWidth()/2) - 110;
-//		int heighthalf = (int)(orgPic.getHeight()/2) - 83;
-//		
-//		PixelReader reader = orgPic.getPixelReader();
-//		WritableImage croppedImage = new WritableImage(reader, widthhalf, heighthalf, 220, 165);
-//		
-//		return croppedImage;
-//	}
 	
 }

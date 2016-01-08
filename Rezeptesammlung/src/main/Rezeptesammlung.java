@@ -69,11 +69,12 @@ public class Rezeptesammlung extends Application{
 		
 		// gui
 		Scene scene = new Scene(new Gui(meth));
-
+		
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(600);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Omnomnom");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 		
 	}
