@@ -88,6 +88,8 @@ public class WebseitencodeReader {
 	// Extrahiert die Zubereitungsinformationen Arbeitszeit, Koch/Backzeit, Schwierigkeitsgrad und Kalorienangabe falls verfügbar 
 	public String[] zubereitugnsinformatinFiltern(String quellcode){
 		String kochUndBackzeit;
+		String kalorienAngabe;
+		
 		 int schnitt1 = (quellcode.indexOf("Zubereitung</h2>"));
 		 int schnitt2 = (quellcode.indexOf("instructions"));
 		 String quellcodeAbschnitt = (quellcode.substring((schnitt1), (schnitt2)));
@@ -101,8 +103,12 @@ public class WebseitencodeReader {
 		 
 		 String arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("prepTime") - 26));
 		 String schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
-		 String kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 38), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 72));
-		 
+		 try{
+			 kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 107), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 100));
+		 }catch(Exception e)
+		 {
+			 kalorienAngabe = "keine Angabe";
+		 }
 //			 System.out.println(arbeitszeit);
 //		 	 System.out.println(kochUndBackzeit);
 //			 System.out.println(schwierigkeitsgrad);
