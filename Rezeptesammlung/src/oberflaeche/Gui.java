@@ -151,7 +151,11 @@ public class Gui extends VBox{
 			Methoden suchenKategorie = new Methoden();
 
 			Suchobjekt[] gefundeneRezepte = suchenKategorie.kategorie(meth.tildeHinzufuegen(sucheingabe, oderSuche.isSelected()), ausgewaehlteSuchkriterien);
+			try{
 			suchtreffer = gefundeneRezepte.length;
+			} catch (Exception e){
+				suchtreffer = 0;
+			}
 			ergebnisanzahl.setText(String.format(
 				"Ihre Suche ergab %1$d Treffer", suchtreffer));
 
