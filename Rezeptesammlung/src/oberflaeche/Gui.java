@@ -6,13 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -37,18 +36,18 @@ public class Gui extends VBox{
 	
 	RadioButton oderSuche;
 	RadioButton undSuche;
-
-	String[] suchkategorien = { "Vorspeise", 
-			"Hauptspeise", 
-			"Dessert",
-			"Beilage", 
-			"Salat", 
-			"Suppen", 
-			"Back-/Süßspeisen", 
-			"Getränke",	
-			"Frühstück" };
-
-	CheckBox[] auswahl = new CheckBox[suchkategorien.length];
+//	
+	RadioMenuItem vorspeise = new RadioMenuItem("Vorspeise");
+	RadioMenuItem hauptspeise = new RadioMenuItem("Hauptspeise");
+	RadioMenuItem dessert = new RadioMenuItem("Dessert");
+	RadioMenuItem beilage = new RadioMenuItem("Beilage");
+	RadioMenuItem salat = new RadioMenuItem("Salat");
+	RadioMenuItem suppen = new RadioMenuItem("Suppen");
+	RadioMenuItem backUndSuess = new RadioMenuItem("Back-und Süßspeisen");
+	RadioMenuItem getraenke = new RadioMenuItem("Getränke");
+	RadioMenuItem fruehstueck = new RadioMenuItem("Frühstück");
+	
+	ToggleGroup suchkategorienGruppe = new ToggleGroup();
 	
 	
 	// Constructor
@@ -96,18 +95,10 @@ public class Gui extends VBox{
 //		Menu webseite;
 
 
-
-		for (int i = 0; i < suchkategorien.length; i++) {
-
-			CheckBox cb = new CheckBox(suchkategorien[i]);
-				cb.setStyle("-fx-text-fill: -fx-text-base-color");
-
-			CustomMenuItem cmi = new CustomMenuItem(cb);
-				cmi.setHideOnClick(false);
-				
-			auswahl[i] = cb;
-			suchoptionen.getItems().add(cmi);
-		}
+		
+		suchkategorienGruppe.getToggles().addAll(vorspeise, hauptspeise, dessert, beilage, salat, suppen, backUndSuess, getraenke, fruehstueck);
+		
+		suchoptionen.getItems().addAll(vorspeise, hauptspeise, dessert, beilage, salat, suppen, backUndSuess, getraenke, fruehstueck);
 
 		suchoptionen.getItems().add(new MenuItem("Auswahlmenü schließen"));
 
@@ -147,8 +138,9 @@ public class Gui extends VBox{
 			
 			// hole aktivierte Suchkritieren aus auswahl[] BEGINN
 			String ausgewaehlteSuchkriterien = "";
-			for(int i = 0; i < auswahl.length; i++){
-				CheckBox chkbox = auswahl[i];
+
+			for(int i = 0; i < suchkategorienGruppe.getToggles().size(); i++){
+				RadioMenuItem chkbox = (RadioMenuItem) suchkategorienGruppe.getToggles().get(i);
 				if(chkbox.isSelected()){
 					ausgewaehlteSuchkriterien += (chkbox.getText() + ", ");
 				}
