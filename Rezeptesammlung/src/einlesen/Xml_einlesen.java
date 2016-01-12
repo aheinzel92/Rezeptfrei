@@ -197,8 +197,6 @@ public class Xml_einlesen {
 		dokument.add(docKalorienPP);
 		dokument.add(docTags);
 		
-		System.out.println(dokument.get("Tags"));
-		System.out.println(dokument.get("Bild"));
 		Rezeptesammlung.writer.addDocument(dokument);
 		Rezeptesammlung.writer.commit();
 	}

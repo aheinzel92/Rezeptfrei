@@ -16,6 +16,7 @@ import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.SAXException;
 
+import einlesen.Methoden;
 import einlesen.Xml_einlesen;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -49,21 +50,17 @@ public class Rezeptesammlung extends Application{
 		File file = new File("C:/SWP/Archive/rssfiles");
 		LinkedList<File> dirList = meth.listDir(file);
 
-		meth.listDir(file);
-//		System.out.println(dirList.size());
-//		
-//		for (int i = 0; i < dirList.size(); i++) {
-//			try {
-//				Xml_einlesen.Einlesen(dirList.get(i).getAbsolutePath());
-//				System.out.println("Datei eingelesen! " + i);
-//			} catch (NullPointerException e) {
-//
-//			}
-//		}
-//		Methoden.deleteDir(file);
-		writer.close();	
-//		String versuchZumTilde = "flachs tomaen";
-//		such.suchen(meth.tildeHinzufuegen(versuchZumTilde));
+		meth.listDir(file);	
+		for (int i = 0; i < dirList.size(); i++) {
+			try {
+				Xml_einlesen.Einlesen(dirList.get(i).getAbsolutePath());
+				System.out.println("Datei eingelesen! " + i);
+			} catch (NullPointerException e) {
+
+			}
+		}
+		Methoden.deleteDir(file);
+		writer.commit();	
 		
 		
 		
