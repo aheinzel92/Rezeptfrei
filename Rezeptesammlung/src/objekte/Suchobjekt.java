@@ -1,8 +1,11 @@
 package objekte;
 
+
+/*
+ * Objekt das für einfacheren Übergabe der Suchergebnisse an die GUI verwendet wird
+ */
 public class Suchobjekt 
 {
-	//tet
 	String titel = "k.A.";
 	String bild = "k.A.";
 	String beschreibung = "k.A.";

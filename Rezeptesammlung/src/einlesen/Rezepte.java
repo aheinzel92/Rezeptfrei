@@ -17,6 +17,9 @@ public class Rezepte {
 	private String monat;
 	private String jahr;
 
+/*
+ * Hinzufügen eigener Rezepte zum Index
+ */
 
 	public void neuesRezeptEinfügen(String etitel, String ebeschreibung, String earbeitszeit,
 			String ekochbackzeit, String eschwierigkeit, String ekalorienpp, String etags) throws IOException {

@@ -80,7 +80,11 @@ public class Xml_einlesen {
 		String monat = "0";
 		String jahr = "0";
 		String bild = "n.A";
-
+		
+/*
+ * 		Da das Format der RSS Feeds von Lecker.de und chefkoch.de unterschiedlich sind muss an dieser Stelle nach Quelle
+ * 		unterschieden und dementsprechend die Werte den Variablen zugewiesen werden.
+ */
 		if (link.contains("www.lecker.de")) {
 			quelle = "lecker.de";
 			tag = pubDat.substring(8, 10);
@@ -159,8 +163,9 @@ public class Xml_einlesen {
 		}
 
 		/*
-		 * Einfügen der Daten in ein Lucene-Dokument Hinzufügen des Dokuments
-		 * zum Index Titel und Inhalt bekommen einen Boost für die Suche
+		 * Einfügen der Daten in ein Lucene-Dokument
+		 * Hinzufügen des Dokuments zum Index 
+		 * Titel und Inhalt bekommen einen Boost für die Suche
 		 * 
 		 */
 
