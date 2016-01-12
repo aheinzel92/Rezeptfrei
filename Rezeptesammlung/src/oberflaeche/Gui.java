@@ -89,7 +89,7 @@ public class Gui extends VBox{
 					}
 				});
 
-		datei.getItems().addAll(beenden, neuesRezept);
+		datei.getItems().addAll(neuesRezept, beenden);
 		
 		Menu suchoptionen = new Menu("Suchoptionen");
 //		Menu webseite;

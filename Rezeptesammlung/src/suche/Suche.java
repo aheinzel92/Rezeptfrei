@@ -3,6 +3,7 @@ package suche;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -71,7 +72,8 @@ public class Suche {
 		Query query = qp.parse(suchbegriff);
 		TopDocs td = searcher.search(query, 10, Sort.INDEXORDER);
 		ScoreDoc[] sd = td.scoreDocs;
-		Suchobjekt[] ergebnisObjekt = new Suchobjekt[sd.length];
+		
+		ArrayList<Suchobjekt> tempArrayList = new ArrayList<Suchobjekt>();
 		
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
@@ -80,35 +82,45 @@ public class Suche {
 //				System.out.println(doc.get("Tags"));
 				System.out.println(doc.get("Tags").toLowerCase());
 				System.out.println(ausgewählteKategorien.toLowerCase());
-				if(doc.get("Tags").toLowerCase().contains(ausgewählteKategorien.toLowerCase())){
-					System.out.println("ok");
-					ergebnisObjekt[i] = new Suchobjekt(doc.get("Quelle"),
+			if (doc.get("Tags").toLowerCase().contains(ausgewählteKategorien.toLowerCase())) {
+				System.out.println("ok");
+				tempArrayList.add(new Suchobjekt(doc.get("Quelle"), 
 													doc.get("Titel"), 
-													doc.get("Bild"), 
-													doc.get("Beschreibung"),
+													doc.get("Bild"),
+													doc.get("Beschreibung"), 
 													doc.get("Tag"), 
 													doc.get("Monat"), 
-													doc.get("Jahr"),
-													doc.get("Inhalt"), 
-													doc.get("Link"),
-													doc.get("Arbeitszeit"),
-													doc.get("KochBackzeit"),
+													doc.get("Jahr"), 
+													doc.get("Inhalt"),
+													doc.get("Link"), 
+													doc.get("Arbeitszeit"), 
+													doc.get("KochBackzeit"), 
 													doc.get("Schwierigkeit"),
-													doc.get("KalorienPP"),
-													doc.get("Tags"));
-					System.out.println(ergebnisObjekt[i].toString());
-//					System.out.println("--------TEST--------");
-//					System.out.println("\nQuelle: " + doc.get("Quelle"));
-//					System.out.println("\nTitel: " + doc.get("Titel"));
-//					System.out.println("\nBild: " + doc.get("Bild"));
-//					System.out.println("\nBeschreibung: " + doc.get("Beschreibung"));
-//					System.out.println("\nTag - Monat - Jahr: " + doc.get("Tag") + " - " + doc.get("Monat") + " - " + doc.get("Jahr"));
-//					System.out.println("\nInhalt: " + doc.get("Inhalt"));
-//					System.out.println("\nLink: " + doc.get("Link"));
-//					System.out.println("-------ENDE---------");
-//			}
-		}}
+													doc.get("KalorienPP"), 
+													doc.get("Tags")));
+				// System.out.println(ergebnisObjekt[i].toString());
+				// System.out.println("--------TEST--------");
+				// System.out.println("\nQuelle: " + doc.get("Quelle"));
+				// System.out.println("\nTitel: " + doc.get("Titel"));
+				// System.out.println("\nBild: " + doc.get("Bild"));
+				// System.out.println("\nBeschreibung: " +
+				// doc.get("Beschreibung"));
+				// System.out.println("\nTag - Monat - Jahr: " + doc.get("Tag")
+				// + " - " + doc.get("Monat") + " - " + doc.get("Jahr"));
+				// System.out.println("\nInhalt: " + doc.get("Inhalt"));
+				// System.out.println("\nLink: " + doc.get("Link"));
+				// System.out.println("-------ENDE---------");
+				// }
+			}
+		}
 		dr.close();
+		
+		// umspulen der Arraylist in ein Array
+		Suchobjekt[] ergebnisObjekt = new Suchobjekt[tempArrayList.size()];
+		for(int i = 0; i < tempArrayList.size();i++){
+			ergebnisObjekt[i] = tempArrayList.get(i);
+		}
+		
 		return ergebnisObjekt;
 	}
 }
