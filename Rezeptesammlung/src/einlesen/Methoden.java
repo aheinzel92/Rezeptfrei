@@ -95,12 +95,14 @@ public class Methoden {
 		public Suchobjekt[] kategorie(String suchbegriff, String ausgewählteKategorien) throws IOException, ParseException{
 			Suche such = new Suche();
 			Suchobjekt[] ergebnis;
+			System.out.println(ausgewählteKategorien.length());
 			if(ausgewählteKategorien.length() == 0){
 				return such.suchen(suchbegriff);
 			}
 			else{
 				return such.suchenNachKategorien(suchbegriff, ausgewählteKategorien);	
 			}
+
 		}
 		
 		// Methode um aus dem Stringarray mit den ganzen Tags einen einzelnen String zu machen
