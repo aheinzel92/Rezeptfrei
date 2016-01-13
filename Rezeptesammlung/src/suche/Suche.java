@@ -48,16 +48,7 @@ public class Suche {
 											doc.get("Schwierigkeit"),
 											doc.get("KalorienPP"),
 											doc.get("Tags"));
-			System.out.println(ergebnisObjekt[i].toString());
-//			System.out.println("--------TEST--------");
-//			System.out.println("\nQuelle: " + doc.get("Quelle"));
-//			System.out.println("\nTitel: " + doc.get("Titel"));
-			System.out.println("\nBild: " + doc.get("Bild"));
-//			System.out.println("\nBeschreibung: " + doc.get("Beschreibung"));
-//			System.out.println("\nTag - Monat - Jahr: " + doc.get("Tag") + " - " + doc.get("Monat") + " - " + doc.get("Jahr"));
-//			System.out.println("\nInhalt: " + doc.get("Inhalt"));
-//			System.out.println("\nLink: " + doc.get("Link"));
-//			System.out.println("-------ENDE---------");
+
 		}
 		dr.close();
 		return ergebnisObjekt;
@@ -77,11 +68,7 @@ public class Suche {
 		
 		for (int i = 0; i < sd.length; i++) {
 			Document doc = searcher.doc(sd[i].doc);
-			
-//			for(int a = 0; a<ausgewählteKategorien.length(); a++){
-//				System.out.println(doc.get("Tags"));
-				System.out.println(doc.get("Tags").toLowerCase());
-				System.out.println(ausgewählteKategorien.toLowerCase());
+
 			if (doc.get("Tags").toLowerCase().contains(ausgewählteKategorien.toLowerCase())) {
 				System.out.println("ok");
 				tempArrayList.add(new Suchobjekt(doc.get("Quelle"), 
@@ -98,19 +85,7 @@ public class Suche {
 													doc.get("Schwierigkeit"),
 													doc.get("KalorienPP"), 
 													doc.get("Tags")));
-				// System.out.println(ergebnisObjekt[i].toString());
-				// System.out.println("--------TEST--------");
-				// System.out.println("\nQuelle: " + doc.get("Quelle"));
-				// System.out.println("\nTitel: " + doc.get("Titel"));
-				// System.out.println("\nBild: " + doc.get("Bild"));
-				// System.out.println("\nBeschreibung: " +
-				// doc.get("Beschreibung"));
-				// System.out.println("\nTag - Monat - Jahr: " + doc.get("Tag")
-				// + " - " + doc.get("Monat") + " - " + doc.get("Jahr"));
-				// System.out.println("\nInhalt: " + doc.get("Inhalt"));
-				// System.out.println("\nLink: " + doc.get("Link"));
-				// System.out.println("-------ENDE---------");
-				// }
+				
 			}
 		}
 		dr.close();

@@ -45,7 +45,6 @@ public class Rezeptesammlung extends Application{
 		writer = new IndexWriter(indexDir, new IndexWriterConfig(Version.LUCENE_45, analyzer));
 		
 		einlesen.Methoden meth = new einlesen.Methoden();
-//		Suche such = new Suche();
 		
 		File file = new File("C:/SWP/Archive/rssfiles");
 		LinkedList<File> dirList = meth.listDir(file);
