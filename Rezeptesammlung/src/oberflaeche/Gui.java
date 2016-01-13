@@ -14,6 +14,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
@@ -46,6 +47,7 @@ public class Gui extends VBox{
 	RadioMenuItem backUndSuess = new RadioMenuItem("Back-und Süßspeisen");
 	RadioMenuItem getraenke = new RadioMenuItem("Getränke");
 	RadioMenuItem fruehstueck = new RadioMenuItem("Frühstück");
+	RadioMenuItem auswahlAufheben = new RadioMenuItem("Auswahl aufheben");
 	
 	ToggleGroup suchkategorienGruppe = new ToggleGroup();
 	
@@ -96,11 +98,10 @@ public class Gui extends VBox{
 
 
 		
-		suchkategorienGruppe.getToggles().addAll(vorspeise, hauptspeise, dessert, beilage, salat, suppen, backUndSuess, getraenke, fruehstueck);
+		suchkategorienGruppe.getToggles().addAll(vorspeise, hauptspeise, dessert, beilage, salat, suppen, backUndSuess, getraenke, fruehstueck, auswahlAufheben);
 		
-		suchoptionen.getItems().addAll(vorspeise, hauptspeise, dessert, beilage, salat, suppen, backUndSuess, getraenke, fruehstueck);
+		suchoptionen.getItems().addAll(vorspeise, hauptspeise, dessert, beilage, salat, suppen, backUndSuess, getraenke, fruehstueck, new SeparatorMenuItem(), auswahlAufheben);
 
-		suchoptionen.getItems().add(new MenuItem("Auswahlmenü schließen"));
 
 		menueLeiste.getMenus().addAll(datei, suchoptionen);
 		
@@ -142,7 +143,9 @@ public class Gui extends VBox{
 			for(int i = 0; i < suchkategorienGruppe.getToggles().size(); i++){
 				RadioMenuItem chkbox = (RadioMenuItem) suchkategorienGruppe.getToggles().get(i);
 				if(chkbox.isSelected()){
+					if(!chkbox.getText().equals("Auswahl aufheben")){
 					ausgewaehlteSuchkriterien += (chkbox.getText() + ", ");
+					}
 				}
 			}
 			
