@@ -186,6 +186,8 @@ public class Xml_einlesen {
 		TextField docSchwierigkeit = new TextField("Schwierigkeit", schwierigkeit, Field.Store.YES);
 		TextField docKalorienPP = new TextField("KalorienPP", kalorienpp, Field.Store.YES);
 		TextField docTags = new TextField("Tags", tags, Field.Store.YES);
+		
+
 
 		docTitel.setBoost(2.0f);
 		docInhalt.setBoost(1.3f);
