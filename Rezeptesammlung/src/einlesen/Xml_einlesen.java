@@ -33,6 +33,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import main.Rezeptesammlung;
 import objekte.WebseitencodeReaderChefkochDe;
+import objekte.WebseitencodeReaderLeckerDe;
 
 public class Xml_einlesen {
 
@@ -59,7 +60,6 @@ public class Xml_einlesen {
 
 		Element text = (Element) doku.getElementsByTagName("ExtractedText").item(0);
 		Element items = (Element) doku.getElementsByTagName("item").item(0);
-		Element xmlBild = (Element) doku.getElementsByTagName("image").item(0);
 
 		DatumAusgabe aktDatum = new DatumAusgabe();
 		String[] datum;
@@ -90,7 +90,9 @@ public class Xml_einlesen {
 			tag = pubDat.substring(8, 10);
 			monat = pubDat.substring(5, 7);
 			jahr = pubDat.substring(0, 4);
-			bild = "nicht verfügbar";
+			WebseitencodeReaderLeckerDe reader = new WebseitencodeReaderLeckerDe(link);
+			bild = reader.getBildUrl();
+			tags = reader.getRezeptTagsRueck();
 			arbeitszeit = "n.A.";
 			kochbackzeit = "n.A.";
 			schwierigkeit = "n.A.";
