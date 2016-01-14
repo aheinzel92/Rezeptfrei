@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,7 +23,7 @@ public class SuchergebnisElement extends HBox {
 
 	private ImageView vorschaubild;
 	
-	private String titel;
+	private Label gerichtName = new Label();
 	@SuppressWarnings("unused")
 	private String beschreibung;
 	@SuppressWarnings("unused")
@@ -66,6 +67,7 @@ public class SuchergebnisElement extends HBox {
 	WebseitencodeReaderChefkochDe quelltextChefkochDe;
 	WebseitencodeReaderLeckerDe quelltextLeckerDe;
 	
+	
 	// Konstruktor der Klasse
 	public SuchergebnisElement(String bildurl, 
 							String beschreibung, 
@@ -78,10 +80,24 @@ public class SuchergebnisElement extends HBox {
 							String quelle) 
 	
 	{
-		this.titel = titel;
+		gerichtName.setText(titel);
+		gerichtName.setStyle("-fx-font: 14 Arial; -fx-font-weight: bold;");
+		
 		this.link = link;
 		this.isChefkoch = quelle.equals("chefkoch.de");
 		
+		System.out.println("=======================");
+		System.out.println(bildurl + "\n");
+		System.out.println(beschreibung + "\n");
+		System.out.println(titel + "\n");
+		System.out.println(inhalt + "\n");
+		System.out.println(link + "\n");
+		System.out.println(tag + "\n");
+		System.out.println(monat + "\n");
+		System.out.println(jahr + "\n");
+		System.out.println(quelle + "\n");
+		
+// ab hier löschen wenn daten von crawler kommen
 		try {
 			if(isChefkoch){
 				quelltextChefkochDe = new WebseitencodeReaderChefkochDe(link);
@@ -91,7 +107,7 @@ public class SuchergebnisElement extends HBox {
 		} catch (Exception e) {
 			System.out.println("Fehler beim Verarbeiten der Daten/Webseite");
 		}
-	
+// bis hier löschen	
 		
 		// Der "Zur Seite"-Button wird generiert um das volle Rezept auf der entsprechnenden Plattform anzuzeigen.
 
@@ -148,7 +164,7 @@ public class SuchergebnisElement extends HBox {
 			if(isChefkoch){
 				thumbnail = new Image(bildurl);
 			}else {
-				thumbnail = new Image(quelltextLeckerDe.getBildUrl());
+				thumbnail = new Image(bildurl);
 			}
 //			Image thumbnail = new Image(bildurl);
 			this.vorschaubild = new ImageView(thumbnail);
@@ -169,8 +185,9 @@ public class SuchergebnisElement extends HBox {
 			url_button.setText(url_button.getText() + " auf Chefkoch.de");
 			
 			VBox datenUndButton = new VBox();
-				datenUndButton.getChildren().addAll(chefkochWebInfosHolen(), url_button);
-				datenUndButton.setSpacing(10);
+				datenUndButton.getChildren().addAll(gerichtName, chefkochWebInfosHolen(), url_button);
+				datenUndButton.setSpacing(5);
+				datenUndButton.setPadding(new Insets(10,0,0,0));
 			this.getChildren().addAll(vorschaubild, datenUndButton);
 			this.setSpacing(10);
 			this.setStyle("-fx-border-style: solid;"
@@ -181,8 +198,9 @@ public class SuchergebnisElement extends HBox {
 			url_button.setText(url_button.getText() + " auf Lecker.de");
 			
 			VBox datenUndButton = new VBox();
-				datenUndButton.getChildren().addAll(leckerWebInfosHolen(), url_button);
-				datenUndButton.setSpacing(10);
+				datenUndButton.getChildren().addAll(gerichtName, leckerWebInfosHolen(), url_button);
+				datenUndButton.setSpacing(5);
+				datenUndButton.setPadding(new Insets(10,0,0,0));
 			this.getChildren().addAll(vorschaubild, datenUndButton);
 			this.setSpacing(10);
 			this.setStyle("-fx-border-style: solid;"
@@ -218,8 +236,7 @@ public class SuchergebnisElement extends HBox {
 			e.printStackTrace();
 		}
 	
-		this.text = new Label( titel + "\n" + 
-								arbeitszeitLabel + arbeitszeit + " / " + 
+		this.text = new Label(	arbeitszeitLabel + arbeitszeit + " / " + 
 								kochbackzeitLabel + kochbackzeit + "\n" + 
 								schwierigkeitLabel + schwierigkeit + "\n" + 
 								kalorienppLabel + kalorienpp);
@@ -247,8 +264,7 @@ public class SuchergebnisElement extends HBox {
 			e.printStackTrace();
 		}
 	
-		this.text = new Label( titel + "\n" + 
-								arbeitszeitLabel + arbeitszeit + " Min. / " + 
+		this.text = new Label(  arbeitszeitLabel + arbeitszeit + " Min. / " + 
 								kochbackzeitLabel + kochbackzeit + "\n" + 
 								schwierigkeitLabel + schwierigkeit + "\n" + 
 								kalorienppLabel + kalorienpp);
