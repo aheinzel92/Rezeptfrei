@@ -35,8 +35,10 @@ public class SuchergebnisElement extends HBox {
 	
 	private String arbeitszeitLabel = "Arbeitszeit: ";
 	private String kochbackzeitLabel = "Koch- und Backzeit: ";
+	private String ruhezeitLabel = "Ruhezeit: ";
 	private String schwierigkeitLabel = "Schwierigkeitsgrad: ";
 	private String kalorienppLabel = "Kalorien p.P.: ";
+	
 	private Label text;
 	
 	private boolean isChefkoch;
@@ -86,18 +88,6 @@ public class SuchergebnisElement extends HBox {
 		this.link = link;
 		this.isChefkoch = quelle.equals("chefkoch.de");
 		
-		System.out.println("=======================");
-		System.out.println(bildurl + "\n");
-		System.out.println(beschreibung + "\n");
-		System.out.println(titel + "\n");
-		System.out.println(inhalt + "\n");
-		System.out.println(link + "\n");
-		System.out.println(tag + "\n");
-		System.out.println(monat + "\n");
-		System.out.println(jahr + "\n");
-		System.out.println(quelle + "\n");
-		
-// ab hier löschen wenn daten von crawler kommen
 		try {
 			if(isChefkoch){
 				quelltextChefkochDe = new WebseitencodeReaderChefkochDe(link);
@@ -105,7 +95,7 @@ public class SuchergebnisElement extends HBox {
 				quelltextLeckerDe = new WebseitencodeReaderLeckerDe(link);
 			}
 		} catch (Exception e) {
-			System.out.println("Fehler beim Verarbeiten der Daten/Webseite");
+			System.out.println("Fehler beim Verarbeiten der Daten/Webseite. Code neu an Quelltext anpassen!");
 		}
 // bis hier löschen	
 		
@@ -221,6 +211,7 @@ public class SuchergebnisElement extends HBox {
 	private Label chefkochWebInfosHolen(){
 		String arbeitszeit = null;
 		String kochbackzeit = null;
+		String ruhezeit = null;
 		String schwierigkeit = null;
 		String kalorienpp = null;
 		
@@ -229,15 +220,17 @@ public class SuchergebnisElement extends HBox {
 		
 			arbeitszeit = array[0];
 			kochbackzeit = array[1];
-			schwierigkeit = array[2];
-			kalorienpp = array[3];
+			ruhezeit = array[2];
+			schwierigkeit = array[3];
+			kalorienpp = array[4];
 
 		}catch(Exception e){
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	
 		this.text = new Label(	arbeitszeitLabel + arbeitszeit + " / " + 
 								kochbackzeitLabel + kochbackzeit + "\n" + 
+								ruhezeitLabel + ruhezeit + "\n" + 
 								schwierigkeitLabel + schwierigkeit + "\n" + 
 								kalorienppLabel + kalorienpp);
 		this.text.setFont(new Font("Sylfaen",14));
@@ -261,7 +254,7 @@ public class SuchergebnisElement extends HBox {
 			kalorienpp = array[3];
 
 		}catch(Exception e){
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	
 		this.text = new Label(  arbeitszeitLabel + arbeitszeit + " Min. / " + 

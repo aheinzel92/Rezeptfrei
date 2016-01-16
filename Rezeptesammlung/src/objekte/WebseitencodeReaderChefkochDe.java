@@ -69,8 +69,16 @@ public class WebseitencodeReaderChefkochDe {
 	public String[] rezeptTagsFiltern(String quellcode){
 		
 		 // Der Code wird nach bestimmten Wörtern gefiltert, die Differenz wird herausgeschnitten und in eine Variable gespeichert
+		try{
 		 rezeptTagsRueck = (quellcode.substring((quellcode.indexOf("Tags:") + 6), (quellcode.indexOf("robots") - 15)));
+		 } catch (Exception e){
+			 System.out.println("Fehler beim Tags lesen");
+		 }
+		try{
 		 rezeptTagsRueck = umlauteErsetzen(rezeptTagsRueck);
+		} catch (Exception e){
+			 System.out.println("Fehler beim Umlaute ersetzen");
+		}
 		 
 		 // Legt die einzelnen Kategorien in ein Array
 		 String[] einzelKat = rezeptTagsRueck.split(", ");
@@ -82,28 +90,58 @@ public class WebseitencodeReaderChefkochDe {
 	public String[] zubereitugnsinformatinFiltern(String quellcode){
 		String kochUndBackzeit;
 		String kalorienAngabe;
+		String arbeitszeit = "";
+		String schwierigkeitsgrad = "";
+		String quellcodeAbschnitt = "";
+		String ruhezeit = "";
 		
 		//Grobes zurechtschneiden des Bereichs mit allen Informationen, damit nicht mehrmals der gesamte Quellcode durchsucht werden muss
-		 String quellcodeAbschnitt = quellcode.substring(quellcode.indexOf("Zubereitung</h2>"), (quellcode.indexOf("instructions")));
-		 
+		try{
+			quellcodeAbschnitt = quellcode.substring(quellcode.indexOf("Zubereitung</h2>"), (quellcode.indexOf("instructions")));
+//			System.out.println(quellcodeAbschnitt);
+		 } catch (Exception e){
+			 System.out.println("Fehler beim quellcode holen");
+		 }
+
 		 try{
-			 kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("cookTime") - 28));
-		 }catch(Exception e){
-			 kochUndBackzeit = "keine Angabe";
+		 arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("Koch-") - 39));
+		 } catch (Exception e){
+//			 System.out.println(quellcodeAbschnitt);
+			 arbeitszeit = "keine Angabe";
+//			 System.out.println(arbeitszeit);
+//			 System.out.println("Fehler beim arbeitszeit holen");
 		 }
 		 
-		 String arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("prepTime") - 26));
-		 String schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
 		 try{
-			 kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 107), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 100));
+			try {
+				kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34),	(quellcodeAbschnitt.indexOf("<strong>Ruhezeit:") - 36));
+				ruhezeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Ruhezeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("<strong>Schwierigkeitsgrad") - 28));
+			} catch (Exception e) {
+				ruhezeit = "keine Angabe";
+				kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("<strong>Schwierigkeitsgrad") - 41));
+			}
+		 }catch(Exception e){
+//			 System.out.println("Fehler beim KochUndBackzeit holen");
+			 kochUndBackzeit = "keine Angabe";
+		 }
+
+		 
+		 try{
+		 schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
+		 } catch (Exception e){
+			 schwierigkeitsgrad = "keine Angabe"; 
+//			 System.out.println("Fehler beim schwierigkeitsgrad holen");
+		 }
+		 try{
+			 kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 38), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 46));
 		 }catch(Exception e)
 		 {
 			 kalorienAngabe = "keine Angabe";
+//			 System.out.println("Fehler beim Kalorien holen");
 		 }
 
-		 String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, schwierigkeitsgrad, kalorienAngabe};
-		
-		
+		 String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, ruhezeit, schwierigkeitsgrad, kalorienAngabe};
+
 		return zubereitungsinfo;
 	}
 	
