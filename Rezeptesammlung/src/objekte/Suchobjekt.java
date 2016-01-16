@@ -17,12 +17,13 @@ public class Suchobjekt
 	String quelle = "k.A.";
 	String arbeitszeit = "k.A.";
 	String kochBackzeit = "k.A";
+	String ruhezeit = "k.A.";
 	String schwierigkeit = "k.A";
 	String kalorienPP = "k.A.";
 	String tags = "k.A";
 
 	
-	public Suchobjekt(String quelle, String titel, String bild, String beschreibung, String tag, String monat, String jahr, String inhalt, String link, String arbeitszeit, String kochbackzeit, String schwierigkeit, String kalorienPP, String tags)
+	public Suchobjekt(String quelle, String titel, String bild, String beschreibung, String tag, String monat, String jahr, String inhalt, String link, String arbeitszeit, String kochbackzeit, String ruhezeit, String schwierigkeit, String kalorienPP, String tags)
 	{
 		this.quelle = quelle;
 		this.titel = titel;
@@ -53,6 +54,10 @@ public class Suchobjekt
 
 	public String getKochBackzeit() {
 		return kochBackzeit;
+	}
+	
+	public String getRuhezeit() {
+		return ruhezeit;
 	}
 
 	public String getSchwierigkeit() {

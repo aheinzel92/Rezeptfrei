@@ -22,7 +22,7 @@ import objekte.Suchobjekt;
 public class Suche {
 	public Suchobjekt[] suchen(String suchbegriff) throws IOException,
 			ParseException {
-		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild", "Arbeitszeit", "KochBackzeit", "Schwierigkeit", "KalorienPP", "Tags"};
+		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild", "Arbeitszeit", "KochBackzeit", "Ruhezeit", "Schwierigkeit", "KalorienPP", "Tags"};
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
 		IndexSearcher searcher = new IndexSearcher(dr);
 		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45, felder, Rezeptesammlung.analyzer);
@@ -45,6 +45,7 @@ public class Suche {
 											doc.get("Link"),
 											doc.get("Arbeitszeit"),
 											doc.get("KochBackzeit"),
+											doc.get("Ruhezeit"),
 											doc.get("Schwierigkeit"),
 											doc.get("KalorienPP"),
 											doc.get("Tags"));
@@ -56,7 +57,7 @@ public class Suche {
 	
 	public Suchobjekt[] suchenNachKategorien(String suchbegriff, String ausgewählteKategorien) throws IOException,
 			ParseException {
-		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild", "Arbeitszeit", "KochBackzeit", "Schwierigkeit", "KalorienPP", "Tags"};
+		String[] felder = {"Quelle", "Titel", "Inhalt", "Link", "Tag", "Monat", "Jahr", "Beschreibung", "Bild", "Arbeitszeit", "KochBackzeit", "Ruhezeit", "Schwierigkeit", "KalorienPP", "Tags"};
 		DirectoryReader dr = DirectoryReader.open(Rezeptesammlung.indexDir);
 		IndexSearcher searcher = new IndexSearcher(dr);
 		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45, felder, Rezeptesammlung.analyzer);
@@ -82,6 +83,7 @@ public class Suche {
 													doc.get("Link"), 
 													doc.get("Arbeitszeit"), 
 													doc.get("KochBackzeit"), 
+													doc.get("Ruhezeit"),
 													doc.get("Schwierigkeit"),
 													doc.get("KalorienPP"), 
 													doc.get("Tags")));

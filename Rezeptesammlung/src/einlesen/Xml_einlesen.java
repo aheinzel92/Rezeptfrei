@@ -72,6 +72,7 @@ public class Xml_einlesen {
 
 		String arbeitszeit = "n.A.";
 		String kochbackzeit = "n.A.";
+		String ruhezeit ="n.A.";
 		String schwierigkeit = "n.A.";
 		String kalorienpp = "n.A.";
 		String tags = "n.A.";
@@ -98,6 +99,7 @@ public class Xml_einlesen {
 			kochbackzeit = zubInformationen[1];
 			schwierigkeit = zubInformationen[2];
 			kalorienpp = zubInformationen[3];
+			ruhezeit ="keine Angabe";
 
 		} else {
 			quelle = "chefkoch.de";
@@ -153,8 +155,9 @@ public class Xml_einlesen {
 
 			arbeitszeit = zubInfo[0];
 			kochbackzeit = zubInfo[1];
-			schwierigkeit = zubInfo[2];
-			kalorienpp = zubInfo[3];
+			ruhezeit = zubInfo[2];
+			schwierigkeit = zubInfo[3];
+			kalorienpp = zubInfo[4];
 			bild = codeReader.getBildUrl();
 
 		}
@@ -184,6 +187,7 @@ public class Xml_einlesen {
 		TextField docBild = new TextField("Bild", bild, Field.Store.YES);
 		TextField docArbeitszeit = new TextField("Arbeitszeit", arbeitszeit, Field.Store.YES);
 		TextField docKochbackzeit = new TextField("KochBackzeit", kochbackzeit, Field.Store.YES);
+		TextField docRuhezeit = new TextField("Ruhezeit", ruhezeit, Field.Store.YES);
 		TextField docSchwierigkeit = new TextField("Schwierigkeit", schwierigkeit, Field.Store.YES);
 		TextField docKalorienPP = new TextField("KalorienPP", kalorienpp, Field.Store.YES);
 		TextField docTags = new TextField("Tags", tags, Field.Store.YES);
@@ -203,6 +207,7 @@ public class Xml_einlesen {
 		dokument.add(docBild);
 		dokument.add(docArbeitszeit);
 		dokument.add(docKochbackzeit);
+		dokument.add(docRuhezeit);
 		dokument.add(docSchwierigkeit);
 		dokument.add(docKalorienPP);
 		dokument.add(docTags);
