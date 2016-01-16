@@ -147,7 +147,8 @@ public class WebseitencodeReaderChefkochDe {
 	
 	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
-		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 116), (quellcode.indexOf("slideshow-imagelink") - 32));
+		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 59), (quellcode.indexOf("slideshow-imagelink") - 32));
+		System.out.println(bild);
 
 		return bild;
 	}
