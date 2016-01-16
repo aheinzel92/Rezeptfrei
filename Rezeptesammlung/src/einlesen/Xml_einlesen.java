@@ -93,10 +93,11 @@ public class Xml_einlesen {
 			WebseitencodeReaderLeckerDe reader = new WebseitencodeReaderLeckerDe(link);
 			bild = reader.getBildUrl();
 			tags = reader.getRezeptTagsRueck();
-			arbeitszeit = "n.A.";
-			kochbackzeit = "n.A.";
-			schwierigkeit = "n.A.";
-			kalorienpp = "n.A.";
+			String zubInformationen[] = reader.getZubereitungsInfos();
+			arbeitszeit = zubInformationen[0];
+			kochbackzeit = zubInformationen[1];
+			schwierigkeit = zubInformationen[2];
+			kalorienpp = zubInformationen[3];
 
 		} else {
 			quelle = "chefkoch.de";
