@@ -88,12 +88,15 @@ public class WebseitencodeReaderChefkochDe {
 	
 	// Extrahiert die Zubereitungsinformationen Arbeitszeit, Koch/Backzeit, Schwierigkeitsgrad und Kalorienangabe falls verfügbar 
 	public String[] zubereitugnsinformatinFiltern(String quellcode){
-		String kochUndBackzeit;
-		String kalorienAngabe;
+		String kochUndBackzeit = "";
+		String kalorienAngabe = "";
 		String arbeitszeit = "";
 		String schwierigkeitsgrad = "";
 		String quellcodeAbschnitt = "";
 		String ruhezeit = "";
+		
+		boolean beinhaltetKochBackzeit;
+		boolean beinhaltetRuhezeit;
 		
 		//Grobes zurechtschneiden des Bereichs mit allen Informationen, damit nicht mehrmals der gesamte Quellcode durchsucht werden muss
 		try{
@@ -103,44 +106,49 @@ public class WebseitencodeReaderChefkochDe {
 			 System.out.println("Fehler beim quellcode holen");
 		 }
 
-		 try{
-		 arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("Koch-") - 39));
-		 } catch (Exception e){
-//			 System.out.println(quellcodeAbschnitt);
-			 arbeitszeit = "keine Angabe";
-//			 System.out.println(arbeitszeit);
-//			 System.out.println("Fehler beim arbeitszeit holen");
-		 }
-		 
-		 try{
+		beinhaltetKochBackzeit = quellcodeAbschnitt.contains("Koch-/Backzeit:");
+		beinhaltetRuhezeit = quellcodeAbschnitt.contains("Ruhezeit:");
+		
+		if (beinhaltetKochBackzeit) {
 			try {
-				kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34),	(quellcodeAbschnitt.indexOf("<strong>Ruhezeit:") - 36));
+				arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("Koch-") - 39));
+				kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("<strong>Schwierigkeitsgrad") - 41));
+			} catch (Exception e) {
+				System.out.println("Fehler in Abschnitt 1");
+			}
+		} else {
+			kochUndBackzeit = "keine Angabe";
+		}
+
+		if (beinhaltetRuhezeit) {
+			try {
+				kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("<strong>Ruhezeit:") - 36));
 				ruhezeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Ruhezeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("<strong>Schwierigkeitsgrad") - 28));
 			} catch (Exception e) {
-				ruhezeit = "keine Angabe";
-				kochUndBackzeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Backzeit:</strong>") + 34), (quellcodeAbschnitt.indexOf("<strong>Schwierigkeitsgrad") - 41));
+				System.out.println("Fehler in Abschnitt 2");
 			}
-		 }catch(Exception e){
-//			 System.out.println("Fehler beim KochUndBackzeit holen");
-			 kochUndBackzeit = "keine Angabe";
-		 }
+		} else {
+			ruhezeit = "keine Angabe";
+		}
 
-		 
-		 try{
-		 schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
-		 } catch (Exception e){
-			 schwierigkeitsgrad = "keine Angabe"; 
-//			 System.out.println("Fehler beim schwierigkeitsgrad holen");
-		 }
-		 try{
-			 kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 38), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 46));
-		 }catch(Exception e)
-		 {
-			 kalorienAngabe = "keine Angabe";
-//			 System.out.println("Fehler beim Kalorien holen");
-		 }
+		if (!beinhaltetKochBackzeit && !beinhaltetRuhezeit) {
+			arbeitszeit = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Arbeitszeit:</strong>") + 35), (quellcodeAbschnitt.indexOf("<strong>Schwierigkeitsgrad:") - 49));
+		}
 
-		 String[] zubereitungsinfo = {arbeitszeit, kochUndBackzeit, ruhezeit, schwierigkeitsgrad, kalorienAngabe};
+		try {
+			schwierigkeitsgrad = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("Schwierigkeitsgrad:</strong>") + 36), (quellcodeAbschnitt.indexOf("Kalorien") - 29));
+		} catch (Exception e) {
+			schwierigkeitsgrad = "keine Angabe";
+			// System.out.println("Fehler beim schwierigkeitsgrad holen");
+		}
+		try {
+			kalorienAngabe = quellcodeAbschnitt.substring((quellcodeAbschnitt.indexOf("p. P.") + 38), (quellcodeAbschnitt.indexOf("rezept-zubereitung") - 46));
+		} catch (Exception e) {
+			kalorienAngabe = "keine Angabe";
+			// System.out.println("Fehler beim Kalorien holen");
+		}
+
+		String[] zubereitungsinfo = { arbeitszeit, kochUndBackzeit, ruhezeit, schwierigkeitsgrad, kalorienAngabe };
 
 		return zubereitungsinfo;
 	}
@@ -148,7 +156,7 @@ public class WebseitencodeReaderChefkochDe {
 	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
 		String bild = quellcode.substring((quellcode.indexOf("nivoSlider") + 59), (quellcode.indexOf("slideshow-imagelink") - 32));
-		System.out.println(bild);
+//		System.out.println(bild);
 
 		return bild;
 	}
