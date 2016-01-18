@@ -27,7 +27,7 @@ public class Suche {
 		IndexSearcher searcher = new IndexSearcher(dr);
 		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45, felder, Rezeptesammlung.analyzer);
 		Query query = qp.parse(suchbegriff);
-		TopDocs td = searcher.search(query, 10, Sort.INDEXORDER);
+		TopDocs td = searcher.search(query, 100, Sort.INDEXORDER); // Zahl steht fuer die maximale Anzahl der Suchergebnisse, hier: 100
 		ScoreDoc[] sd = td.scoreDocs;
 		Suchobjekt[] ergebnisObjekt = new Suchobjekt[sd.length];
 		
@@ -62,7 +62,7 @@ public class Suche {
 		IndexSearcher searcher = new IndexSearcher(dr);
 		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_45, felder, Rezeptesammlung.analyzer);
 		Query query = qp.parse(suchbegriff);
-		TopDocs td = searcher.search(query, 10, Sort.INDEXORDER);
+		TopDocs td = searcher.search(query, 100, Sort.INDEXORDER); // Zahl steht fuer die maximale Anzahl der Suchergebnisse, hier: 100
 		ScoreDoc[] sd = td.scoreDocs;
 		
 		ArrayList<Suchobjekt> tempArrayList = new ArrayList<Suchobjekt>();
