@@ -24,7 +24,7 @@ public class WebseitencodeReaderChefkochDe {
 		 // Quellcode wird in Variable gespeichert
 		 String quellcode = quelltextHolen(rezeptUrl);
 		 rezeptTags = rezeptTagsFiltern(quellcode); 		// RezeptTags
-		 zubereitungsInfos = zubereitugnsinformatinFiltern(quellcode);
+		 zubereitungsInfos = zubereitugnsinformationFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
 		 
 	 }
@@ -87,7 +87,7 @@ public class WebseitencodeReaderChefkochDe {
 	}
 	
 	// Extrahiert die Zubereitungsinformationen Arbeitszeit, Koch/Backzeit, Schwierigkeitsgrad und Kalorienangabe falls verfügbar 
-	public String[] zubereitugnsinformatinFiltern(String quellcode){
+	public String[] zubereitugnsinformationFiltern(String quellcode){
 		String kochUndBackzeit = "";
 		String kalorienAngabe = "";
 		String arbeitszeit = "";

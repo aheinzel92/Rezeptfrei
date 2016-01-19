@@ -13,17 +13,12 @@ public class WebseitencodeReaderLeckerDe {
 	String bildUrl;
 	String rezeptTagsRueck;
 	
-	
-	 public String getRezeptTagsRueck() {
-		return rezeptTagsRueck;
-	}
-
 	public WebseitencodeReaderLeckerDe(String rezeptUrl) { 
 		 
 		 // Quellcode wird in Variable gespeichert
 		 String quellcode = quelltextHolen(rezeptUrl);
 		 rezeptTags = rezeptTagsFiltern(quellcode); 		// RezeptTags
-		 zubereitungsInfos = zubereitugnsinformatinFiltern(quellcode);
+		 zubereitungsInfos = zubereitugnsinformationFiltern(quellcode);
 		 bildUrl = vorschaubildFiltern(quellcode);
 		 
 	 }
@@ -42,9 +37,8 @@ public class WebseitencodeReaderLeckerDe {
 
 			}
 			scanner.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sb.toString();
@@ -76,7 +70,7 @@ public class WebseitencodeReaderLeckerDe {
 	}
 	
 	// Extrahiert die Zubereitungsinformationen Arbeitszeit, Koch/Backzeit, Schwierigkeitsgrad und Kalorienangabe falls verfügbar 
-	public String[] zubereitugnsinformatinFiltern(String quellcode){
+	public String[] zubereitugnsinformationFiltern(String quellcode){
 
 		String kalorienAngabe;
 		
@@ -105,8 +99,12 @@ public class WebseitencodeReaderLeckerDe {
 	
 	// Extrahiert das erste Rezeptbild aus dem Bilder-Slider der Webseite
 	public String vorschaubildFiltern(String quellcode){
-		String bild = quellcode.substring((quellcode.indexOf("og:image") + 19), (quellcode.indexOf("<!-- END contentview -->") - 7));
-
+		String bild = null;
+		try{
+		bild = quellcode.substring((quellcode.indexOf("og:image") + 19), (quellcode.indexOf("<!-- END contentview -->") - 7));
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		return bild;
 	}
 	
@@ -115,6 +113,11 @@ public class WebseitencodeReaderLeckerDe {
 	// GETTER
 	public String getBildUrl(){
 		return bildUrl;
+	}
+	
+	
+	 public String getRezeptTagsRueck() {
+		return rezeptTagsRueck;
 	}
 	
 	public String[] getZubereitungsInfos(){
