@@ -36,9 +36,10 @@ public class Suchobjekt
 		this.link = link;
 		this.arbeitszeit = arbeitszeit;
 		this.kochBackzeit = kochbackzeit;
-		this.schwierigkeit=schwierigkeit;
+		this.schwierigkeit = schwierigkeit;
 		this.kalorienPP = kalorienPP;
 		this.tags = tags;
+		this.ruhezeit = ruhezeit;
 	}
 
 	public String toString() {

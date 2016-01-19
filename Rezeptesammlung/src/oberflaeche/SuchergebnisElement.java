@@ -66,8 +66,8 @@ public class SuchergebnisElement extends HBox {
 									+ "-fx-font-size: 12px;"
 									+ "-fx-padding: 10 20 10 20;";
 	
-	WebseitencodeReaderChefkochDe quelltextChefkochDe;
-	WebseitencodeReaderLeckerDe quelltextLeckerDe;
+//	WebseitencodeReaderChefkochDe quelltextChefkochDe;
+//	WebseitencodeReaderLeckerDe quelltextLeckerDe;
 	
 	
 	// Konstruktor der Klasse
@@ -79,7 +79,12 @@ public class SuchergebnisElement extends HBox {
 							String tag, 
 							String monat, 
 							String jahr, 
-							String quelle) 
+							String quelle, 
+							String kochUndBackzeit, 
+							String kalorienPP, 
+							String ruhezeit, 
+							String schwierigkeit, 
+							String arbeitszeit) 
 	
 	{
 		gerichtName.setText(titel);
@@ -88,15 +93,15 @@ public class SuchergebnisElement extends HBox {
 		this.link = link;
 		this.isChefkoch = quelle.equals("chefkoch.de");
 		
-		try {
-			if(isChefkoch){
-				quelltextChefkochDe = new WebseitencodeReaderChefkochDe(link);
-			}else {
-				quelltextLeckerDe = new WebseitencodeReaderLeckerDe(link);
-			}
-		} catch (Exception e) {
-			System.out.println("Fehler beim Verarbeiten der Daten/Webseite. Code neu an Quelltext anpassen!");
-		}
+//		try {
+//			if(isChefkoch){
+//				quelltextChefkochDe = new WebseitencodeReaderChefkochDe(link);
+//			}else {
+//				quelltextLeckerDe = new WebseitencodeReaderLeckerDe(link);
+//			}
+//		} catch (Exception e) {
+//			System.out.println("Fehler beim Verarbeiten der Daten/Webseite. Code neu an Quelltext anpassen!");
+//		}
 // bis hier löschen	
 		
 		// Der "Zur Seite"-Button wird generiert um das volle Rezept auf der entsprechnenden Plattform anzuzeigen.
@@ -168,6 +173,11 @@ public class SuchergebnisElement extends HBox {
 				vorschaubild.setImage(bild);
 		}
 
+		this.text = new Label(  arbeitszeitLabel + arbeitszeit + " Min. / " + 
+				kochbackzeitLabel + kochUndBackzeit + "\n" + 
+				schwierigkeitLabel + schwierigkeit + "\n" + 
+				kalorienppLabel + kalorienPP);
+this.text.setFont(new Font("Sylfaen",14));
 		
 		// Hier wirden alle Daten gepackt und das schlussendliche Suchergebniselement erstellt
 		if (isChefkoch) {
@@ -175,7 +185,7 @@ public class SuchergebnisElement extends HBox {
 			url_button.setText(url_button.getText() + " auf Chefkoch.de");
 			
 			VBox datenUndButton = new VBox();
-				datenUndButton.getChildren().addAll(gerichtName, chefkochWebInfosHolen(), url_button);
+				datenUndButton.getChildren().addAll(gerichtName, text, url_button);
 				datenUndButton.setSpacing(5);
 				datenUndButton.setPadding(new Insets(10,0,0,0));
 			this.getChildren().addAll(vorschaubild, datenUndButton);
@@ -188,7 +198,7 @@ public class SuchergebnisElement extends HBox {
 			url_button.setText(url_button.getText() + " auf Lecker.de");
 			
 			VBox datenUndButton = new VBox();
-				datenUndButton.getChildren().addAll(gerichtName, leckerWebInfosHolen(), url_button);
+				datenUndButton.getChildren().addAll(gerichtName, text, url_button);
 				datenUndButton.setSpacing(5);
 				datenUndButton.setPadding(new Insets(10,0,0,0));
 			this.getChildren().addAll(vorschaubild, datenUndButton);
@@ -208,62 +218,62 @@ public class SuchergebnisElement extends HBox {
 	 * Die Elemente des Arrays, welches durch split() entsteht, werden in einzelne String-Variablen
 	 * gespeichert.
 	 */
-	private Label chefkochWebInfosHolen(){
-		String arbeitszeit = null;
-		String kochbackzeit = null;
-		String ruhezeit = null;
-		String schwierigkeit = null;
-		String kalorienpp = null;
+//	private Label chefkochWebInfosHolen(){
+//		String arbeitszeit = null;
+//		String kochbackzeit = null;
+//		String ruhezeit = null;
+//		String schwierigkeit = null;
+//		String kalorienpp = null;
 		
-		try{
-			String[] array = quelltextChefkochDe.getZubereitungsInfos();
-		
-			arbeitszeit = array[0];
-			kochbackzeit = array[1];
-			ruhezeit = array[2];
-			schwierigkeit = array[3];
-			kalorienpp = array[4];
-
-		}catch(Exception e){
-//			e.printStackTrace();
-		}
+//		try{
+//			String[] array = quelltextChefkochDe.getZubereitungsInfos();
+//		
+//			arbeitszeit = array[0];
+//			kochbackzeit = array[1];
+//			ruhezeit = array[2];
+//			schwierigkeit = array[3];
+//			kalorienpp = array[4];
+//
+//		}catch(Exception e){
+////			e.printStackTrace();
+//		}
+//	
+//		this.text = new Label(	arbeitszeitLabel + arbeitszeit + " / " + 
+//								kochbackzeitLabel + kochbackzeit + "\n" + 
+//								ruhezeitLabel + ruhezeit + "\n" + 
+//								schwierigkeitLabel + schwierigkeit + "\n" + 
+//								kalorienppLabel + kalorienpp);
+//		this.text.setFont(new Font("Sylfaen",14));
+//		
+//		return text;
+//	}
 	
-		this.text = new Label(	arbeitszeitLabel + arbeitszeit + " / " + 
-								kochbackzeitLabel + kochbackzeit + "\n" + 
-								ruhezeitLabel + ruhezeit + "\n" + 
-								schwierigkeitLabel + schwierigkeit + "\n" + 
-								kalorienppLabel + kalorienpp);
-		this.text.setFont(new Font("Sylfaen",14));
-		
-		return text;
-	}
 	
-	
-	private Label leckerWebInfosHolen(){
-		String arbeitszeit = null;
-		String kochbackzeit = null;
-		String schwierigkeit = null;
-		String kalorienpp = null;
-		
-		try{
-			String[] array = quelltextLeckerDe.getZubereitungsInfos();
-		
-			arbeitszeit = array[0];
-			kochbackzeit = array[1];
-			schwierigkeit = array[2];
-			kalorienpp = array[3];
-
-		}catch(Exception e){
-//			e.printStackTrace();
-		}
-	
-		this.text = new Label(  arbeitszeitLabel + arbeitszeit + " Min. / " + 
-								kochbackzeitLabel + kochbackzeit + "\n" + 
-								schwierigkeitLabel + schwierigkeit + "\n" + 
-								kalorienppLabel + kalorienpp);
-		this.text.setFont(new Font("Sylfaen",14));
-		
-		return text;
-	}
+//	private Label leckerWebInfosHolen(){
+//		String arbeitszeit = null;
+//		String kochbackzeit = null;
+//		String schwierigkeit = null;
+//		String kalorienpp = null;
+//		
+//		try{
+//			String[] array = quelltextLeckerDe.getZubereitungsInfos();
+//		
+//			arbeitszeit = array[0];
+//			kochbackzeit = array[1];
+//			schwierigkeit = array[2];
+//			kalorienpp = array[3];
+//
+//		}catch(Exception e){
+////			e.printStackTrace();
+//		}
+//	
+//		this.text = new Label(  arbeitszeitLabel + arbeitszeit + " Min. / " + 
+//								kochbackzeitLabel + kochbackzeit + "\n" + 
+//								schwierigkeitLabel + schwierigkeit + "\n" + 
+//								kalorienppLabel + kalorienpp);
+//		this.text.setFont(new Font("Sylfaen",14));
+//		
+//		return text;
+//	}
 	
 }

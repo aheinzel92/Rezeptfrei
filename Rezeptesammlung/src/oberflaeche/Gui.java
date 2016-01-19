@@ -172,7 +172,12 @@ public class Gui extends VBox{
 														gefundeneRezepte[i].getTag(),
 														gefundeneRezepte[i].getMonat(),
 														gefundeneRezepte[i].getJahr(),
-														gefundeneRezepte[i].getQuelle());
+														gefundeneRezepte[i].getQuelle(),
+														gefundeneRezepte[i].getKochBackzeit(),
+														gefundeneRezepte[i].getKalorienPP(),
+														gefundeneRezepte[i].getRuhezeit(),
+														gefundeneRezepte[i].getSchwierigkeit(),
+														gefundeneRezepte[i].getArbeitszeit());
 
 				suchergebnisse.getChildren().add(tempRezept);
 			}
